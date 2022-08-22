@@ -3,6 +3,8 @@ import { PropertyItemListResponse, TitlePropertyItemObjectResponse } from "@noti
 import dotenv from "dotenv";
 import { NotionToMarkdown } from "notion-to-md";
 import fs from "fs";
+import { sh } from "./helpers";
+
 dotenv.config();
 
 
@@ -35,8 +37,10 @@ date: ${page.created_time}
 draft: false
 ---
 `
-    const fileName = `content/${title}.md` 
-    fs.writeFileSync(fileName, frontMatter + mdString);
+    const fileName = title.replaceAll(' ', '-').toLowerCase()
+    let { stdout } = await sh(`hugo new posts/${fileName}.md`);
+    console.log(stdout)
+    fs.writeFileSync(`content/posts/${fileName}.md`, frontMatter + mdString);
   
   }
   
