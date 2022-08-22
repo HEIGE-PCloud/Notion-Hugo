@@ -14,11 +14,10 @@
   "keywords": [],
   "author": "",
   "dependencies": {
-    "@notionhq/client": "^2.0.0",
+    "@notionhq/client": "^2.1.1",
     "dotenv": "^16.0.1"
   },
   "devDependencies": {
-    "@types/dotenv": "^8.2.0",
     "@types/node": "^18.0.3",
     "prettier": "^2.7.1",
     "ts-node": "^10.8.2",
