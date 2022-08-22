@@ -1,9 +1,14 @@
 {
-  "name": "notion-sdk-project",
-  "version": "1.0.0",
-  "description": "",
-  "main": "dist/index.js",
+  "name": "notion-doit",
+  "version": "0.0.1",
+  "description": "Use Notion as the CMS for your Hugo DoIt site",
+  "main": "src/index.ts",
   "private": true,
+  "license": "MIT",
+  "homepage": "https://github.com/Hugo-DoIt/Notion-DoIt",
+  "bugs": {
+    "url": "https://github.com/Hugo-DoIt/Notion-DoIt/issues"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node src/index.ts",
@@ -11,8 +16,8 @@
     "build": "tsc",
     "format": "prettier --write src/**/*.ts"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["Notion", "Hugo", "theme", "DoIt"],
+  "author": "HEIGE-PCloud",
   "dependencies": {
     "@notionhq/client": "^2.1.1",
     "dotenv": "^16.0.1",
