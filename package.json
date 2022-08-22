@@ -15,7 +15,8 @@
   "author": "",
   "dependencies": {
     "@notionhq/client": "^2.1.1",
-    "dotenv": "^16.0.1"
+    "dotenv": "^16.0.1",
+    "notion-to-md": "^2.5.5"
   },
   "devDependencies": {
     "@types/node": "^18.0.3",
