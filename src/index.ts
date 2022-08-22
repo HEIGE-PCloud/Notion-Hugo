@@ -29,9 +29,14 @@ async function main() {
     const response = (await notion.pages.properties.retrieve({ page_id: page.id, property_id: 'title' })) as PropertyItemListResponse
     const titleResponse = response.results[0] as TitlePropertyItemObjectResponse
     const title = titleResponse.title.plain_text
-    const fileName = `${title}.md` 
-    console.log(mdString)
-    fs.writeFileSync(fileName, mdString);
+    const frontMatter = `---
+title: ${title}
+date: ${page.created_time}
+draft: false
+---
+`
+    const fileName = `content/${title}.md` 
+    fs.writeFileSync(fileName, frontMatter + mdString);
   
   }
   
