@@ -3,12 +3,13 @@ import { PropertyItemListResponse, TitlePropertyItemObjectResponse } from "@noti
 import dotenv from "dotenv";
 import { NotionToMarkdown } from "notion-to-md";
 import fs from "fs";
-import { sh } from "./helpers";
-
+import { loadConfig, sh } from "./helpers";
 dotenv.config();
 
 
 async function main() {
+  const config = loadConfig()
+
   const notion = new Client({
     auth: process.env.NOTION_TOKEN,
   });
@@ -45,6 +46,8 @@ draft: false
   }
   
 }
+
+
 
 main()
   .then(() => process.exit(0))

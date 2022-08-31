@@ -1,0 +1,3 @@
+[[mounts]]
+    database_id = "b7b1816c05ec464391c8c111fa242985"
+    target_folder = "posts"
