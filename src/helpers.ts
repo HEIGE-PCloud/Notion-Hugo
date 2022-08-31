@@ -1,6 +1,6 @@
 import { exec } from "child_process";
 import toml from 'toml';
-import fs from "fs";
+import fs from "fs-extra";
 
 /**
  * Execute simple shell command (async wrapper).
