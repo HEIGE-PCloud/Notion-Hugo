@@ -3,7 +3,7 @@ import { PropertyItemListResponse, TitlePropertyItemObjectResponse } from "@noti
 import dotenv from "dotenv";
 import { NotionToMarkdown } from "notion-to-md";
 import fs from "fs-extra";
-import { loadConfig, sh } from "./helpers";
+import { getCoverLink, getPageTitle, loadConfig, sh } from "./helpers";
 import YAML from 'yaml'
 
 dotenv.config();
@@ -25,14 +25,14 @@ async function main() {
       if (!isFullPage(page)) continue
       const mdblocks = await n2m.pageToMarkdown(page.id);
       const mdString = n2m.toMarkdownString(mdblocks);
-      const response = (await notion.pages.properties.retrieve({ page_id: page.id, property_id: 'title' })) as PropertyItemListResponse
-      const titleResponse = response.results[0] as TitlePropertyItemObjectResponse
-      const title = titleResponse.title.plain_text
+      const title = await getPageTitle(page.id, notion)
+      const featuredImageLink = await getCoverLink(page.id, notion);
       const frontMatter = `---
 ${YAML.stringify({
   title,
   date: page.created_time,
-  draft: false
+  draft: false,
+  featuredImage: featuredImageLink ?? undefined  
 })}
 ---
 `
