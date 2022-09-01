@@ -109,7 +109,7 @@ export async function renderPage(
 export async function savePage(page: GetPageResponse, notion: Client, mount: DatabaseMount | PageMount) {
   if (!isFullPage(page)) return;
   const { title, pageString } = await renderPage(page, notion);
-  const fileName = title.replaceAll(' ', '-') + '-' + page.id.replaceAll('-', '')
+  const fileName = title.replaceAll(' ', '-').replace(/--+/g, '-') + '-' + page.id.replaceAll('-', '')
   let { stdout } = await sh(
     `hugo new "${mount.target_folder}/${fileName}.md"`,
     false
