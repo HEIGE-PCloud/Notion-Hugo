@@ -2,8 +2,11 @@ name: CD
 
 on:
   push:
-    branches: ["main"]
-  schedule: ["0 * * * *"]
+    branches:
+      - 'main'
+
+  schedule:
+    - cron: '0 * * * *' # run every hour
   workflow_dispatch:
     
 
