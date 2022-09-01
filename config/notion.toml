@@ -1,3 +1,7 @@
-[[mounts]]
+[mount]
+[[mount.databases]]
     database_id = "b7b1816c05ec464391c8c111fa242985"
     target_folder = "posts"
+[[mount.pages]]
+    page_id = "45eb121158b9489480ec000fd25c812b"
+    target_folder = "."
