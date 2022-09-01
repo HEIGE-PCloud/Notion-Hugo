@@ -94,12 +94,48 @@ export async function renderPage(
   const mdString = n2m.toMarkdownString(mdblocks);
   const title = await getPageTitle(page.id, notion);
   const featuredImageLink = await getCoverLink(page.id, notion);
-  const frontMatter = {
+  const frontMatter: any = {
     title,
     date: page.created_time,
+    lastmod: page.last_edited_time,
     draft: false,
     featuredImage: featuredImageLink ?? undefined,
   };
+  for (const property in page.properties) {
+    const id = page.properties[property].id
+    const response = await notion.pages.properties.retrieve({ page_id: page.id, property_id: id})
+    switch (response.type) {
+      case 'checkbox':
+        frontMatter[property] = response.checkbox
+        break
+      case 'select':
+        frontMatter[property] = response.select?.name
+        break
+      case 'multi_select':
+        frontMatter[property] = response.multi_select.map(select => select.name)
+        break
+      case 'email':
+      case 'files':
+      case 'formula':
+      case 'last_edited_by':
+      case 'last_edited_time':
+      case 'number':
+      case 'people':
+      case 'phone_number':
+      case 'relation':
+      case 'rich_text':
+      case 'rollup':
+      case 'status':
+      case 'url':        
+      case 'title':
+      case 'created_by':
+      case 'created_time':  
+      case 'date':
+        break;
+      default:
+        break;
+    }
+  }
   return {
     title,
     pageString: '---\n' + YAML.stringify(frontMatter) + '\n---\n' + mdString
