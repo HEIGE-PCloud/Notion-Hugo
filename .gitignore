@@ -4,3 +4,4 @@ dist
 resources
 .hugo_build.lock
 content/posts/*.md
+public
