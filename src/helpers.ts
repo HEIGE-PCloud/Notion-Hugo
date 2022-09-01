@@ -3,6 +3,7 @@ import toml from "toml";
 import fs from "fs-extra";
 import { Client, isFullPage } from "@notionhq/client";
 import {
+  GetPageResponse,
   PageObjectResponse,
   PropertyItemListResponse,
   TitlePropertyItemObjectResponse,
@@ -16,11 +17,12 @@ import YAML from "yaml";
  * @return {Object} { stdout: String, stderr: String }
  */
 export async function sh(
-  cmd: string
+  cmd: string,
+  panic: boolean = true
 ): Promise<{ stdout: string; stderr: string }> {
   return new Promise(function (resolve, reject) {
     exec(cmd, (err, stdout, stderr) => {
-      if (err) {
+      if (err && panic) {
         reject(err);
       } else {
         resolve({ stdout, stderr });
@@ -29,26 +31,28 @@ export async function sh(
   });
 }
 
-export type pageMount = {
+export type PageMount = {
   page_id: string;
   target_folder: string;
 };
 
-export type databaseMount = {
+export type DatabaseMount = {
   database_id: string;
   target_folder: string;
 };
 
-export type config = {
-  mount: {
-    databases: databaseMount[];
-    pages: pageMount[];
-  };
+export type Mount = {
+  databases: DatabaseMount[];
+  pages: PageMount[];
+}
+
+export type Config = {
+  mount: Mount
 };
 
-export function loadConfig(): config {
+export function loadConfig(): Config {
   const configString = fs.readFileSync("config/notion.toml", "utf8");
-  const config = toml.parse(configString) as config;
+  const config = toml.parse(configString) as Config;
 
   if (config.mount === undefined || config.mount === null) {
     throw new SyntaxError("Error: No mount is configured in notion.toml.");
@@ -100,4 +104,20 @@ export async function renderPage(
     title,
     pageString: '---\n' + YAML.stringify(frontMatter) + '\n---\n' + mdString
   }
+}
+
+export async function savePage(page: GetPageResponse, notion: Client, mount: DatabaseMount | PageMount) {
+  if (!isFullPage(page)) return;
+  const { title, pageString } = await renderPage(page, notion);
+  const fileName = title.replaceAll(' ', '-') + '-' + page.id.replaceAll('-', '')
+  let { stdout } = await sh(
+    `hugo new "${mount.target_folder}/${fileName}.md"`,
+    false
+  );
+  console.log(stdout);
+  fs.writeFileSync(
+    `content/${mount.target_folder}/${fileName}.md`,
+    pageString
+  );
+
 }
