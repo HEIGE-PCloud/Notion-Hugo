@@ -56,6 +56,8 @@ jobs:
 
       - name: Build with Hugo
         run: |
+          npm install
+          npm start
           hugo
 
       - name: Upload artifact
