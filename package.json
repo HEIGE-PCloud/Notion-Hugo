@@ -27,12 +27,14 @@
     "@notionhq/client": "^2.1.1",
     "dotenv": "^16.0.1",
     "fs-extra": "^10.1.0",
+    "katex": "^0.16.2",
     "notion-to-md": "^2.5.5",
     "toml": "^3.0.0",
     "yaml": "^2.1.1"
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.13",
+    "@types/katex": "^0.14.0",
     "@types/node": "^18.7.14",
     "prettier": "^2.7.1",
     "ts-node": "^10.9.1",

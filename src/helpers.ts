@@ -3,6 +3,7 @@ import toml from "toml";
 import fs from "fs-extra";
 import { Client, isFullPage } from "@notionhq/client";
 import {
+  EquationBlockObjectResponse,
   GetPageResponse,
   PageObjectResponse,
   PropertyItemListResponse,
@@ -10,7 +11,8 @@ import {
 } from "@notionhq/client/build/src/api-endpoints";
 import { NotionToMarkdown } from "notion-to-md";
 import YAML from "yaml";
-
+import katex from "katex";
+require("katex/contrib/mhchem");
 /**
  * Execute simple shell command (async wrapper).
  * @param {String} cmd
@@ -44,10 +46,10 @@ export type DatabaseMount = {
 export type Mount = {
   databases: DatabaseMount[];
   pages: PageMount[];
-}
+};
 
 export type Config = {
-  mount: Mount
+  mount: Mount;
 };
 
 export function loadConfig(): Config {
@@ -85,11 +87,17 @@ export async function getCoverLink(
   else return page.cover.file.url;
 }
 
-export async function renderPage(
-  page: PageObjectResponse,
-  notion: Client
-) {
+export async function renderPage(page: PageObjectResponse, notion: Client) {
   const n2m = new NotionToMarkdown({ notionClient: notion });
+  n2m.setCustomTransformer("equation", async (block) => {
+    const { equation } = block as EquationBlockObjectResponse;
+    const html = katex.renderToString(equation.expression, {
+      throwOnError: false,
+      displayMode: true,
+    });
+    return html;
+  });
+
   const mdblocks = await n2m.pageToMarkdown(page.id);
   const mdString = n2m.toMarkdownString(mdblocks);
   const title = await getPageTitle(page.id, notion);
@@ -102,22 +110,25 @@ export async function renderPage(
   };
   return {
     title,
-    pageString: '---\n' + YAML.stringify(frontMatter) + '\n---\n' + mdString
-  }
+    pageString: "---\n" + YAML.stringify(frontMatter) + "\n---\n" + mdString,
+  };
 }
 
-export async function savePage(page: GetPageResponse, notion: Client, mount: DatabaseMount | PageMount) {
+export async function savePage(
+  page: GetPageResponse,
+  notion: Client,
+  mount: DatabaseMount | PageMount
+) {
   if (!isFullPage(page)) return;
   const { title, pageString } = await renderPage(page, notion);
-  const fileName = title.replaceAll(' ', '-').replace(/--+/g, '-') + '-' + page.id.replaceAll('-', '')
+  const fileName =
+    title.replaceAll(" ", "-").replace(/--+/g, "-") +
+    "-" +
+    page.id.replaceAll("-", "");
   let { stdout } = await sh(
     `hugo new "${mount.target_folder}/${fileName}.md"`,
     false
   );
   console.log(stdout);
-  fs.writeFileSync(
-    `content/${mount.target_folder}/${fileName}.md`,
-    pageString
-  );
-
+  fs.writeFileSync(`content/${mount.target_folder}/${fileName}.md`, pageString);
 }
