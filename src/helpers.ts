@@ -58,7 +58,7 @@ export function loadConfig(): Config {
   const configString = fs.readFileSync("config/notion.toml", "utf8");
   const config = toml.parse(configString) as Config;
 
-  if (config.mount === undefined || config.mount === null) {
+  if (config.mount == null) {
     throw new SyntaxError("Error: No mount is configured in notion.toml.");
   }
 
@@ -95,13 +95,15 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
   const mdString = n2m.toMarkdownString(mdblocks);
   const title = await getPageTitle(page.id, notion);
   const featuredImageLink = await getCoverLink(page.id, notion);
-  const frontMatter: any = {
+  const frontMatter: Record<string, string | string[] | number | boolean> = {
     title,
     date: page.created_time,
     lastmod: page.last_edited_time,
-    draft: false,
-    featuredImage: featuredImageLink ?? undefined,
+    draft: false
   };
+  
+  // set featuredImage
+  if (featuredImageLink) frontMatter.featuredImage = featuredImageLink
 
   // map page properties to front matter
   for (const property in page.properties) {
@@ -116,7 +118,7 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
           frontMatter[property] = response.checkbox;
           break;
         case "select":
-          frontMatter[property] = response.select?.name;
+          if (response.select?.name) frontMatter[property] = response.select?.name;
           break;
         case "multi_select":
           frontMatter[property] = response.multi_select.map(
@@ -124,22 +126,22 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
           );
           break;
         case "email":
-          frontMatter[property] = response.email;
+          if (response.email) frontMatter[property] = response.email;
           break;
         case "url":
-          frontMatter[property] = response.url;
+          if (response.url) frontMatter[property] = response.url;
           break;
         case "date":
-          frontMatter[property] = response.date?.start;
+          if (response.date?.start) frontMatter[property] = response.date?.start;
           break;
         case "number":
-          frontMatter[property] = response.number;
+          if (response.number) frontMatter[property] = response.number;
           break;
         case "phone_number":
-          frontMatter[property] = response.phone_number;
+          if (response.phone_number) frontMatter[property] = response.phone_number;
           break;
         case "status":
-          frontMatter[property] = response.status?.name;
+          if (response.status?.name) frontMatter[property] = response.status?.name;
         // ignore these properties
         case "last_edited_by":
         case "last_edited_time":
@@ -162,7 +164,10 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
           case "people":
             frontMatter[property] = frontMatter[property] || []
             if (isFullUser(result.people)) {
-              frontMatter[property].push(result.people.name)
+              const fm = frontMatter[property]
+              if (Array.isArray(fm) && result.people.name) {
+                fm.push(result.people.name)
+              }
             }
             break;
           case "rich_text":
@@ -183,7 +188,9 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
   // set default author
   if (frontMatter.authors === undefined) {
     const response = await notion.users.retrieve({ user_id: page.last_edited_by.id })
-    frontMatter.authors = [response.name]
+    if (response.name) {      
+      frontMatter.authors = [response.name]
+    }
   }
 
   return {
