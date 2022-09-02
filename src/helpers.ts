@@ -2,20 +2,16 @@ import { exec } from "child_process";
 import toml from "toml";
 import fs from "fs-extra";
 import {
-  EquationBlockObjectResponse,
   Client,
   isFullPage,
   isFullUser,
   iteratePaginatedAPI,
 } from "@notionhq/client";
 import {
-  GetPagePropertyParameters,
+  EquationBlockObjectResponse,
   GetPageResponse,
   PageObjectResponse,
-  PeoplePropertyItemObjectResponse,
   PropertyItemListResponse,
-  PropertyItemObjectResponse,
-  PropertyItemPropertyItemListResponse,
   TitlePropertyItemObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
 import { NotionToMarkdown } from "notion-to-md";
