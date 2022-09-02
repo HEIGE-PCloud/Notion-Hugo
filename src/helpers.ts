@@ -1,20 +1,18 @@
 import { Client, isFullPage } from "@notionhq/client";
 import {
+  PageObjectResponse,
   PropertyItemListResponse,
   TitlePropertyItemObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
 
-export async function getPageTitle(
-  page_id: string,
-  notion: Client
-): Promise<string> {
-  const response = (await notion.pages.properties.retrieve({
-    page_id,
-    property_id: "title",
-  })) as PropertyItemListResponse;
-  const titleResponse = response.results[0] as TitlePropertyItemObjectResponse;
-  const title = titleResponse.title.plain_text;
-  return title;
+export function getPageTitle(page: PageObjectResponse): string {
+  const title = page.properties.Name ?? page.properties.title;
+  if (title.type === "title") {
+    return title.title.map((text) => text.plain_text).join("");
+  }
+  throw Error(
+    `page.properties.Name has type ${title.type} instead of title. The underlying Notion API might has changed, please report an issue to the author.`
+  );
 }
 
 export async function getCoverLink(

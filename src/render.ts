@@ -30,7 +30,8 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
   });
   const mdblocks = await n2m.pageToMarkdown(page.id);
   const mdString = n2m.toMarkdownString(mdblocks);
-  const title = await getPageTitle(page.id, notion);
+  page.properties.Name;
+  const title = getPageTitle(page);
   const featuredImageLink = await getCoverLink(page.id, notion);
   const frontMatter: Record<string, string | string[] | number | boolean> = {
     title,
