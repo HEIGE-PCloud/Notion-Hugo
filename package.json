@@ -25,7 +25,7 @@
   "author": "HEIGE-PCloud",
   "dependencies": {
     "@notionhq/client": "^2.2.0",
-    "@pclouddev/notion-to-markdown": "^2.6.5",
+    "@pclouddev/notion-to-markdown": "^2.6.6",
     "dotenv": "^16.0.2",
     "fs-extra": "^10.1.0",
     "katex": "^0.16.2",
