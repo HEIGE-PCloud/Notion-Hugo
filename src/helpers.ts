@@ -1,11 +1,15 @@
 import { exec } from "child_process";
 import toml from "toml";
 import fs from "fs-extra";
-import { Client, isFullPage } from "@notionhq/client";
+import { Client, isFullPage, isFullUser, iteratePaginatedAPI } from "@notionhq/client";
 import {
+  GetPagePropertyParameters,
   GetPageResponse,
   PageObjectResponse,
+  PeoplePropertyItemObjectResponse,
   PropertyItemListResponse,
+  PropertyItemObjectResponse,
+  PropertyItemPropertyItemListResponse,
   TitlePropertyItemObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
 import { NotionToMarkdown } from "notion-to-md";
@@ -44,10 +48,10 @@ export type DatabaseMount = {
 export type Mount = {
   databases: DatabaseMount[];
   pages: PageMount[];
-}
+};
 
 export type Config = {
-  mount: Mount
+  mount: Mount;
 };
 
 export function loadConfig(): Config {
@@ -85,39 +89,115 @@ export async function getCoverLink(
   else return page.cover.file.url;
 }
 
-export async function renderPage(
-  page: PageObjectResponse,
-  notion: Client
-) {
+export async function renderPage(page: PageObjectResponse, notion: Client) {
   const n2m = new NotionToMarkdown({ notionClient: notion });
   const mdblocks = await n2m.pageToMarkdown(page.id);
   const mdString = n2m.toMarkdownString(mdblocks);
   const title = await getPageTitle(page.id, notion);
   const featuredImageLink = await getCoverLink(page.id, notion);
-  const frontMatter = {
+  const frontMatter: any = {
     title,
     date: page.created_time,
+    lastmod: page.last_edited_time,
     draft: false,
     featuredImage: featuredImageLink ?? undefined,
   };
+  for (const property in page.properties) {
+    const id = page.properties[property].id;
+    const response = await notion.pages.properties.retrieve({
+      page_id: page.id,
+      property_id: id,
+    });
+    if (response.object === "property_item") {
+      switch (response.type) {
+        case "checkbox":
+          frontMatter[property] = response.checkbox;
+          break;
+        case "select":
+          frontMatter[property] = response.select?.name;
+          break;
+        case "multi_select":
+          frontMatter[property] = response.multi_select.map(
+            (select) => select.name
+          );
+          break;
+        case "email":
+          frontMatter[property] = response.email;
+          break;
+        case "url":
+          frontMatter[property] = response.url;
+          break;
+        case "date":
+          frontMatter[property] = response.date?.start;
+          break;
+        case "number":
+          frontMatter[property] = response.number;
+          break;
+        case "phone_number":
+          frontMatter[property] = response.phone_number;
+          break;
+        case "status":
+          frontMatter[property] = response.status?.name;
+        // ignore these properties
+        case "last_edited_by":
+        case "last_edited_time":
+        case "rollup":
+        case "files":
+        case "formula":
+        case "created_by":
+        case "created_time":
+          break;
+        default:
+          break;
+      }
+    } else {
+      // @ts-ignore
+      for await (const result of iteratePaginatedAPI(notion.pages.properties.retrieve, {
+        page_id: page.id,
+        property_id: id
+      })) {
+        switch (result.type) {
+          case "people":
+            frontMatter[property] = frontMatter[property] || []
+            if (isFullUser(result.people)) {
+              frontMatter[property].push(result.people.name)
+            }
+            break;
+          case "rich_text":
+            frontMatter[property] = frontMatter[property] || ''
+            frontMatter[property] += result.rich_text.plain_text
+          // ignore these
+          case "relation":
+          case "title":
+          default:
+            break;
+        }
+        
+      }
+
+    }
+  }
   return {
     title,
-    pageString: '---\n' + YAML.stringify(frontMatter) + '\n---\n' + mdString
-  }
+    pageString: "---\n" + YAML.stringify(frontMatter) + "\n---\n" + mdString,
+  };
 }
 
-export async function savePage(page: GetPageResponse, notion: Client, mount: DatabaseMount | PageMount) {
+export async function savePage(
+  page: GetPageResponse,
+  notion: Client,
+  mount: DatabaseMount | PageMount
+) {
   if (!isFullPage(page)) return;
   const { title, pageString } = await renderPage(page, notion);
-  const fileName = title.replaceAll(' ', '-').replace(/--+/g, '-') + '-' + page.id.replaceAll('-', '')
+  const fileName =
+    title.replaceAll(" ", "-").replace(/--+/g, "-") +
+    "-" +
+    page.id.replaceAll("-", "");
   let { stdout } = await sh(
     `hugo new "${mount.target_folder}/${fileName}.md"`,
     false
   );
   console.log(stdout);
-  fs.writeFileSync(
-    `content/${mount.target_folder}/${fileName}.md`,
-    pageString
-  );
-
+  fs.writeFileSync(`content/${mount.target_folder}/${fileName}.md`, pageString);
 }
