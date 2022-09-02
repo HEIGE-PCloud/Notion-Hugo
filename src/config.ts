@@ -17,7 +17,7 @@ export type Mount = {
 };
 
 export type Config = {
-  mount: Mount;
+  mount?: Mount;
 };
 
 export function loadConfig(): Config {
