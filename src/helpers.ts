@@ -1,12 +1,21 @@
 import { exec } from "child_process";
 import toml from "toml";
 import fs from "fs-extra";
-import { Client, isFullPage } from "@notionhq/client";
 import {
   EquationBlockObjectResponse,
+  Client,
+  isFullPage,
+  isFullUser,
+  iteratePaginatedAPI,
+} from "@notionhq/client";
+import {
+  GetPagePropertyParameters,
   GetPageResponse,
   PageObjectResponse,
+  PeoplePropertyItemObjectResponse,
   PropertyItemListResponse,
+  PropertyItemObjectResponse,
+  PropertyItemPropertyItemListResponse,
   TitlePropertyItemObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
 import { NotionToMarkdown } from "notion-to-md";
@@ -56,7 +65,7 @@ export function loadConfig(): Config {
   const configString = fs.readFileSync("config/notion.toml", "utf8");
   const config = toml.parse(configString) as Config;
 
-  if (config.mount === undefined || config.mount === null) {
+  if (config.mount == null) {
     throw new SyntaxError("Error: No mount is configured in notion.toml.");
   }
 
@@ -102,12 +111,111 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
   const mdString = n2m.toMarkdownString(mdblocks);
   const title = await getPageTitle(page.id, notion);
   const featuredImageLink = await getCoverLink(page.id, notion);
-  const frontMatter = {
+  const frontMatter: Record<string, string | string[] | number | boolean> = {
     title,
     date: page.created_time,
+    lastmod: page.last_edited_time,
     draft: false,
-    featuredImage: featuredImageLink ?? undefined,
   };
+
+  // set featuredImage
+  if (featuredImageLink) frontMatter.featuredImage = featuredImageLink;
+
+  // map page properties to front matter
+  for (const property in page.properties) {
+    const id = page.properties[property].id;
+    const response = await notion.pages.properties.retrieve({
+      page_id: page.id,
+      property_id: id,
+    });
+    if (response.object === "property_item") {
+      switch (response.type) {
+        case "checkbox":
+          frontMatter[property] = response.checkbox;
+          break;
+        case "select":
+          if (response.select?.name)
+            frontMatter[property] = response.select?.name;
+          break;
+        case "multi_select":
+          frontMatter[property] = response.multi_select.map(
+            (select) => select.name
+          );
+          break;
+        case "email":
+          if (response.email) frontMatter[property] = response.email;
+          break;
+        case "url":
+          if (response.url) frontMatter[property] = response.url;
+          break;
+        case "date":
+          if (response.date?.start)
+            frontMatter[property] = response.date?.start;
+          break;
+        case "number":
+          if (response.number) frontMatter[property] = response.number;
+          break;
+        case "phone_number":
+          if (response.phone_number)
+            frontMatter[property] = response.phone_number;
+          break;
+        case "status":
+          if (response.status?.name)
+            frontMatter[property] = response.status?.name;
+        // ignore these properties
+        case "last_edited_by":
+        case "last_edited_time":
+        case "rollup":
+        case "files":
+        case "formula":
+        case "created_by":
+        case "created_time":
+          break;
+        default:
+          break;
+      }
+    } else {
+      for await (const result of iteratePaginatedAPI(
+        // @ts-ignore
+        notion.pages.properties.retrieve,
+        {
+          page_id: page.id,
+          property_id: id,
+        }
+      )) {
+        switch (result.type) {
+          case "people":
+            frontMatter[property] = frontMatter[property] || [];
+            if (isFullUser(result.people)) {
+              const fm = frontMatter[property];
+              if (Array.isArray(fm) && result.people.name) {
+                fm.push(result.people.name);
+              }
+            }
+            break;
+          case "rich_text":
+            frontMatter[property] = frontMatter[property] || "";
+            frontMatter[property] += result.rich_text.plain_text;
+          // ignore these
+          case "relation":
+          case "title":
+          default:
+            break;
+        }
+      }
+    }
+  }
+
+  // set default author
+  if (frontMatter.authors === undefined) {
+    const response = await notion.users.retrieve({
+      user_id: page.last_edited_by.id,
+    });
+    if (response.name) {
+      frontMatter.authors = [response.name];
+    }
+  }
+
   return {
     title,
     pageString: "---\n" + YAML.stringify(frontMatter) + "\n---\n" + mdString,
