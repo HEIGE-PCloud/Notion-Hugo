@@ -18,14 +18,14 @@ async function main() {
     for await (const page of iteratePaginatedAPI(notion.databases.query, {
       database_id: mount.database_id,
     })) {
-      await savePage(page, notion, mount)
+      await savePage(page, notion, mount);
     }
   }
 
   // process mounted pages
   for (const mount of config.mount.pages) {
     const page = await notion.pages.retrieve({ page_id: mount.page_id });
-    await savePage(page, notion, mount)
+    await savePage(page, notion, mount);
   }
 }
 

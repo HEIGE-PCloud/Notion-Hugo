@@ -1,7 +1,12 @@
 import { exec } from "child_process";
 import toml from "toml";
 import fs from "fs-extra";
-import { Client, isFullPage, isFullUser, iteratePaginatedAPI } from "@notionhq/client";
+import {
+  Client,
+  isFullPage,
+  isFullUser,
+  iteratePaginatedAPI,
+} from "@notionhq/client";
 import {
   GetPagePropertyParameters,
   GetPageResponse,
@@ -99,11 +104,11 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
     title,
     date: page.created_time,
     lastmod: page.last_edited_time,
-    draft: false
+    draft: false,
   };
-  
+
   // set featuredImage
-  if (featuredImageLink) frontMatter.featuredImage = featuredImageLink
+  if (featuredImageLink) frontMatter.featuredImage = featuredImageLink;
 
   // map page properties to front matter
   for (const property in page.properties) {
@@ -118,7 +123,8 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
           frontMatter[property] = response.checkbox;
           break;
         case "select":
-          if (response.select?.name) frontMatter[property] = response.select?.name;
+          if (response.select?.name)
+            frontMatter[property] = response.select?.name;
           break;
         case "multi_select":
           frontMatter[property] = response.multi_select.map(
@@ -132,16 +138,19 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
           if (response.url) frontMatter[property] = response.url;
           break;
         case "date":
-          if (response.date?.start) frontMatter[property] = response.date?.start;
+          if (response.date?.start)
+            frontMatter[property] = response.date?.start;
           break;
         case "number":
           if (response.number) frontMatter[property] = response.number;
           break;
         case "phone_number":
-          if (response.phone_number) frontMatter[property] = response.phone_number;
+          if (response.phone_number)
+            frontMatter[property] = response.phone_number;
           break;
         case "status":
-          if (response.status?.name) frontMatter[property] = response.status?.name;
+          if (response.status?.name)
+            frontMatter[property] = response.status?.name;
         // ignore these properties
         case "last_edited_by":
         case "last_edited_time":
@@ -155,41 +164,44 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
           break;
       }
     } else {
-      // @ts-ignore
-      for await (const result of iteratePaginatedAPI(notion.pages.properties.retrieve, {
-        page_id: page.id,
-        property_id: id
-      })) {
+      for await (const result of iteratePaginatedAPI(
+        // @ts-ignore
+        notion.pages.properties.retrieve,
+        {
+          page_id: page.id,
+          property_id: id,
+        }
+      )) {
         switch (result.type) {
           case "people":
-            frontMatter[property] = frontMatter[property] || []
+            frontMatter[property] = frontMatter[property] || [];
             if (isFullUser(result.people)) {
-              const fm = frontMatter[property]
+              const fm = frontMatter[property];
               if (Array.isArray(fm) && result.people.name) {
-                fm.push(result.people.name)
+                fm.push(result.people.name);
               }
             }
             break;
           case "rich_text":
-            frontMatter[property] = frontMatter[property] || ''
-            frontMatter[property] += result.rich_text.plain_text
+            frontMatter[property] = frontMatter[property] || "";
+            frontMatter[property] += result.rich_text.plain_text;
           // ignore these
           case "relation":
           case "title":
           default:
             break;
         }
-        
       }
-
     }
   }
 
   // set default author
   if (frontMatter.authors === undefined) {
-    const response = await notion.users.retrieve({ user_id: page.last_edited_by.id })
-    if (response.name) {      
-      frontMatter.authors = [response.name]
+    const response = await notion.users.retrieve({
+      user_id: page.last_edited_by.id,
+    });
+    if (response.name) {
+      frontMatter.authors = [response.name];
     }
   }
 
