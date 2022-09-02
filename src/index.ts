@@ -1,13 +1,15 @@
-import { Client, isFullPage, iteratePaginatedAPI } from "@notionhq/client";
+import { Client, iteratePaginatedAPI } from "@notionhq/client";
 import dotenv from "dotenv";
 import fs from "fs-extra";
-import { loadConfig, renderPage, savePage, sh } from "./helpers";
+import { renderPage, savePage } from "./render";
+import { loadConfig } from "./config";
 
 dotenv.config();
 
 async function main() {
-  if (process.env.NOTION_TOKEN === '') throw Error('The NOTION_TOKEN environment vairable is not set.')
- 
+  if (process.env.NOTION_TOKEN === "")
+    throw Error("The NOTION_TOKEN environment vairable is not set.");
+
   const config = loadConfig();
 
   const notion = new Client({
