@@ -57,10 +57,11 @@ jobs:
       - name: Build with Hugo
         env: # Or as an environment variable
          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+         HUGO_ENVIRONMENT: DoIt
         run: |
           npm install
           npm start
-          hugo
+          hugo -e DoIt
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
