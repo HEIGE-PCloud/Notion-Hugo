@@ -6,17 +6,28 @@ import {
   iteratePaginatedAPI,
 } from "@notionhq/client";
 import {
+  EquationBlockObjectResponse,
   GetPageResponse,
   PageObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
-import { NotionToMarkdown } from "notion-to-md";
+import { NotionToMarkdown } from "@pclouddev/notion-to-markdown";
 import YAML from "yaml";
 import { sh } from "./sh";
 import { DatabaseMount, PageMount } from "./config";
 import { getPageTitle, getCoverLink } from "./helpers";
+import katex from "katex";
+require("katex/contrib/mhchem"); // modify katex module
 
 export async function renderPage(page: PageObjectResponse, notion: Client) {
   const n2m = new NotionToMarkdown({ notionClient: notion });
+  n2m.setCustomTransformer("equation", async (block) => {
+    const { equation } = block as EquationBlockObjectResponse;
+    const html = katex.renderToString(equation.expression, {
+      throwOnError: false,
+      displayMode: true,
+    });
+    return html;
+  });
   const mdblocks = await n2m.pageToMarkdown(page.id);
   const mdString = n2m.toMarkdownString(mdblocks);
   const title = await getPageTitle(page.id, notion);
@@ -117,7 +128,7 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
   }
 
   // set default author
-  if (frontMatter.authors === undefined) {
+  if (frontMatter.authors == null) {
     const response = await notion.users.retrieve({
       user_id: page.last_edited_by.id,
     });
