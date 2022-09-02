@@ -102,6 +102,8 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
     draft: false,
     featuredImage: featuredImageLink ?? undefined,
   };
+
+  // map page properties to front matter
   for (const property in page.properties) {
     const id = page.properties[property].id;
     const response = await notion.pages.properties.retrieve({
@@ -177,6 +179,13 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
 
     }
   }
+
+  // set default author
+  if (frontMatter.authors === undefined) {
+    const response = await notion.users.retrieve({ user_id: page.last_edited_by.id })
+    frontMatter.authors = [response.name]
+  }
+
   return {
     title,
     pageString: "---\n" + YAML.stringify(frontMatter) + "\n---\n" + mdString,
