@@ -122,6 +122,10 @@ menu:
       name: tags
       url: /tags/
       weight: 20
+    - identifier: about
+      name: about
+      url: /about
+      weight: 30
     - identifier: example
       name: example.org
       url: https://example.org
