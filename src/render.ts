@@ -10,7 +10,7 @@ import {
   GetPageResponse,
   PageObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
-import { NotionToMarkdown } from "notion-to-md";
+import { NotionToMarkdown } from "@pclouddev/notion-to-markdown";
 import YAML from "yaml";
 import { sh } from "./sh";
 import { DatabaseMount, PageMount } from "./config";
