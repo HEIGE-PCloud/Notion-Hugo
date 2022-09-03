@@ -16,8 +16,17 @@ export type Mount = {
   pages: PageMount[];
 };
 
+export type EquationFormatter = {
+  style: "markdown" | "shortcode" | "ssr";
+};
+
+export type Formatter = {
+  equation: EquationFormatter;
+};
+
 export type Config = {
   mount: Mount;
+  formatter: Formatter;
 };
 
 export function loadConfig(): Config {

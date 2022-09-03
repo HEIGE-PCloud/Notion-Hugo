@@ -5,3 +5,12 @@
 [[mount.pages]]
     page_id = "45eb121158b9489480ec000fd25c812b"
     target_folder = "."
+
+[formatter]
+[formatter.equation]
+    # config how maths equations are rendered into markdown
+    # there are three options (markdown, shortcode, ssr)
+    # markdown renders the equations in default markdown flavor
+    # shortcode renders the equations into the math shortcode
+    # ssr directly renders equations into HTML + MathML
+    style = "ssr"
