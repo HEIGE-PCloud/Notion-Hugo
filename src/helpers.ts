@@ -25,3 +25,9 @@ export async function getCoverLink(
   if (page.cover.type === "external") return page.cover.external.url;
   else return page.cover.file.url;
 }
+
+export function createFileName(title: string, page_id: string): string {
+  return title.replaceAll(" ", "-").replace(/--+/g, "-") +
+  "-" +
+  page_id.replaceAll("-", "") + '.md';
+}

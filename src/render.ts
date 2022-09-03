@@ -14,7 +14,7 @@ import { NotionToMarkdown } from "@pclouddev/notion-to-markdown";
 import YAML from "yaml";
 import { sh } from "./sh";
 import { DatabaseMount, PageMount } from "./config";
-import { getPageTitle, getCoverLink } from "./helpers";
+import { getPageTitle, getCoverLink, createFileName } from "./helpers";
 import katex from "katex";
 require("katex/contrib/mhchem"); // modify katex module
 
@@ -33,7 +33,10 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
   page.properties.Name;
   const title = getPageTitle(page);
   const featuredImageLink = await getCoverLink(page.id, notion);
-  const frontMatter: Record<string, string | string[] | number | boolean | PageObjectResponse> = {
+  const frontMatter: Record<
+    string,
+    string | string[] | number | boolean | PageObjectResponse
+  > = {
     title,
     date: page.created_time,
     lastmod: page.last_edited_time,
@@ -139,11 +142,18 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
   }
 
   // save metadata
-  frontMatter.NOTION_METADATA = page
-  
+  frontMatter.NOTION_METADATA = page;
+
   return {
     title,
-    pageString: "---\n" + YAML.stringify(frontMatter) + "\n---\n" + mdString,
+    pageString:
+      "---\n" +
+      YAML.stringify(frontMatter, {
+        defaultStringType: "QUOTE_DOUBLE",
+        defaultKeyType: "PLAIN",
+      }) +
+      "\n---\n" +
+      mdString,
   };
 }
 
@@ -154,14 +164,11 @@ export async function savePage(
 ) {
   if (!isFullPage(page)) return;
   const { title, pageString } = await renderPage(page, notion);
-  const fileName =
-    title.replaceAll(" ", "-").replace(/--+/g, "-") +
-    "-" +
-    page.id.replaceAll("-", "");
+  const fileName = createFileName(title, page.id);
   let { stdout } = await sh(
-    `hugo new "${mount.target_folder}/${fileName}.md"`,
+    `hugo new "${mount.target_folder}/${fileName}"`,
     false
   );
   console.log(stdout);
-  fs.writeFileSync(`content/${mount.target_folder}/${fileName}.md`, pageString);
+  fs.writeFileSync(`content/${mount.target_folder}/${fileName}`, pageString);
 }

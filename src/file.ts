@@ -26,7 +26,7 @@ export function getContentFile(filepath: string): ContentFile | undefined {
       metadata
     }
   } else {
-    console.warn(`${filepath} does not have NOTION_METADATA in its frontmatter`)
+    console.warn(`[Warn] ${filepath} does not have NOTION_METADATA in its front matter`)
     return undefined
   }
 }
@@ -56,7 +56,7 @@ export function getAllContentFiles(
         metadata
       })
     } else {
-      console.warn(`${filepath} does not have NOTION_METADATA in its frontmatter`)
+      console.warn(`[Warn] ${filepath} does not have NOTION_METADATA in its front matter`)
     }
   }
   return fileArray

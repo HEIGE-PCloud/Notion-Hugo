@@ -1,8 +1,11 @@
-import { Client, iteratePaginatedAPI } from "@notionhq/client";
+import { Client, isFullPage, iteratePaginatedAPI } from "@notionhq/client";
 import dotenv from "dotenv";
 import fs from "fs-extra";
 import { renderPage, savePage } from "./render";
 import { loadConfig } from "./config";
+import { getContentFile } from "./file";
+import path from "path";
+import { createFileName, getPageTitle } from "./helpers";
 
 dotenv.config();
 
@@ -29,6 +32,23 @@ async function main() {
   // process mounted pages
   for (const mount of config.mount.pages) {
     const page = await notion.pages.retrieve({ page_id: mount.page_id });
+    if (!isFullPage(page)) continue;
+    const postpath = path.join(
+      "content",
+      mount.target_folder,
+      createFileName(getPageTitle(page), page.id)
+    );
+    const post = getContentFile(postpath);
+    if (post) {
+      const metadata = post?.metadata;
+      // if the page is not modified, continue
+      if (metadata.last_edited_time === page.last_edited_time) {
+        console.info(`[Info] The post ${postpath} is up-to-date, skipped.`);
+        continue;
+      }
+    }
+    // otherwise update the page
+    console.info(`Updating ${postpath}`);
     await savePage(page, notion, mount);
   }
 }

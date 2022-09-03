@@ -1,64 +1,65 @@
 ---
-title: Equations
-date: 2022-09-01T14:45:00.000Z
-lastmod: 2022-09-03T16:26:00.000Z
+title: "Equations"
+date: "2022-09-01T14:45:00.000Z"
+lastmod: "2022-09-03T16:26:00.000Z"
 draft: false
 series: []
 authors:
-  - PCloud
+  - "PCloud"
 tags: []
 categories: []
 NOTION_METADATA:
-  object: page
-  id: fa098d33-eeed-4806-a8fc-f530f188f40f
-  created_time: 2022-09-01T14:45:00.000Z
-  last_edited_time: 2022-09-03T16:26:00.000Z
+  object: "page"
+  id: "fa098d33-eeed-4806-a8fc-f530f188f40f"
+  created_time: "2022-09-01T14:45:00.000Z"
+  last_edited_time: "2022-09-03T16:26:00.000Z"
   created_by:
-    object: user
-    id: 657d1c71-eca5-475d-b9d3-3669efd38ab9
+    object: "user"
+    id: "657d1c71-eca5-475d-b9d3-3669efd38ab9"
   last_edited_by:
-    object: user
-    id: 657d1c71-eca5-475d-b9d3-3669efd38ab9
+    object: "user"
+    id: "657d1c71-eca5-475d-b9d3-3669efd38ab9"
   cover: null
   icon: null
   parent:
-    type: database_id
-    database_id: b7b1816c-05ec-4643-91c8-c111fa242985
+    type: "database_id"
+    database_id: "b7b1816c-05ec-4643-91c8-c111fa242985"
   archived: false
   properties:
     series:
-      id: B%3C%3FS
-      type: multi_select
+      id: "B%3C%3FS"
+      type: "multi_select"
       multi_select: []
     draft:
-      id: JiWU
-      type: checkbox
+      id: "JiWU"
+      type: "checkbox"
       checkbox: false
     authors:
-      id: bK%3B%5B
-      type: people
+      id: "bK%3B%5B"
+      type: "people"
       people:
-        - object: user
-          id: 657d1c71-eca5-475d-b9d3-3669efd38ab9
-          name: PCloud
-          avatar_url: https://s3-us-west-2.amazonaws.com/public.notion-static.com/1a0f7d04-9a04-49c9-9ac2-670b2bf4e33c/IMG_0309.jpg
-          type: person
+        - object: "user"
+          id: "657d1c71-eca5-475d-b9d3-3669efd38ab9"
+          name: "PCloud"
+          avatar_url: "https://s3-us-west-2.amazonaws.com/public.notion-static.com/1a0f7d\
+            04-9a04-49c9-9ac2-670b2bf4e33c/IMG_0309.jpg"
+          type: "person"
           person: {}
     tags:
-      id: jw%7CC
-      type: multi_select
+      id: "jw%7CC"
+      type: "multi_select"
       multi_select: []
     categories:
-      id: nbY%3F
-      type: multi_select
+      id: "nbY%3F"
+      type: "multi_select"
       multi_select: []
     Name:
-      id: title
-      type: title
+      id: "title"
+      type: "title"
       title:
-        - type: text
+        - type: "text"
           text:
-            content: Equations
+            content: "Equations"
             link: null
           annotations:
             bold: false
@@ -66,10 +67,10 @@ NOTION_METADATA:
             strikethrough: false
             underline: false
             code: false
-            color: default
-          plain_text: Equations
+            color: "default"
+          plain_text: "Equations"
           href: null
-  url: https://www.notion.so/Equations-fa098d33eeed4806a8fcf530f188f40f
+  url: "https://www.notion.so/Equations-fa098d33eeed4806a8fcf530f188f40f"
 
 ---
 
