@@ -26,7 +26,7 @@ export async function getCoverLink(
   else return page.cover.file.url;
 }
 
-export function createFileName(title: string, page_id: string): string {
+export function getFileName(title: string, page_id: string): string {
   return title.replaceAll(" ", "-").replace(/--+/g, "-") +
   "-" +
   page_id.replaceAll("-", "") + '.md';

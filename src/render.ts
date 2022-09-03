@@ -14,7 +14,7 @@ import { NotionToMarkdown } from "@pclouddev/notion-to-markdown";
 import YAML from "yaml";
 import { sh } from "./sh";
 import { DatabaseMount, PageMount } from "./config";
-import { getPageTitle, getCoverLink, createFileName } from "./helpers";
+import { getPageTitle, getCoverLink, getFileName } from "./helpers";
 import katex from "katex";
 require("katex/contrib/mhchem"); // modify katex module
 
@@ -164,11 +164,10 @@ export async function savePage(
 ) {
   if (!isFullPage(page)) return;
   const { title, pageString } = await renderPage(page, notion);
-  const fileName = createFileName(title, page.id);
+  const fileName = getFileName(title, page.id);
   let { stdout } = await sh(
     `hugo new "${mount.target_folder}/${fileName}"`,
     false
   );
-  console.log(stdout);
   fs.writeFileSync(`content/${mount.target_folder}/${fileName}`, pageString);
 }
