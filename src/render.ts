@@ -47,8 +47,13 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
 
   switch (formatterConfig.equation.style) {
     case 'markdown':
+      n2m.setCustomTransformer("equation", async (block) => {
+        const { equation } = block as EquationBlockObjectResponse;
+        return `\\[${equation}\\]`;
+      });
       break;
     case 'shortcode':
+      // TODO: Add math shortcode
       break;
     case 'ssr':
       n2m.setCustomTransformer("equation", async (block) => {
