@@ -3,5 +3,4 @@ dist
 .env
 resources
 .hugo_build.lock
-content/**/*.md
 public
