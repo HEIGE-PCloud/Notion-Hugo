@@ -15,7 +15,22 @@ function isMarkdownFile(filename: string): boolean {
   return filename.endsWith(".md");
 }
 
-// return all content 
+export function getContentFile(filepath: string): ContentFile | undefined {
+  if (!fs.existsSync(filepath)) return undefined
+  const filedata = fm(fs.readFileSync(filepath, 'utf-8'))
+  const metadata = (filedata.attributes as any).NOTION_METADATA
+  if (metadata) {
+    return {
+      filename: path.basename(filepath),
+      filepath,
+      metadata
+    }
+  } else {
+    console.warn(`${filepath} does not have NOTION_METADATA in its frontmatter`)
+    return undefined
+  }
+}
+
 export function getAllContentFiles(
   dirPath: string,
 ): ContentFile[] {
