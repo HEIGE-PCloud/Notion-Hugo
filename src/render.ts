@@ -33,7 +33,7 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
   page.properties.Name;
   const title = getPageTitle(page);
   const featuredImageLink = await getCoverLink(page.id, notion);
-  const frontMatter: Record<string, string | string[] | number | boolean> = {
+  const frontMatter: Record<string, string | string[] | number | boolean | PageObjectResponse> = {
     title,
     date: page.created_time,
     lastmod: page.last_edited_time,
@@ -138,6 +138,9 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
     }
   }
 
+  // save metadata
+  frontMatter.NOTION_METADATA = page
+  
   return {
     title,
     pageString: "---\n" + YAML.stringify(frontMatter) + "\n---\n" + mdString,
