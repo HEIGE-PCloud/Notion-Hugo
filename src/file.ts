@@ -56,7 +56,7 @@ export function getAllContentFiles(
         metadata
       })
     } else {
-      console.warn(`[Warn] ${filepath} does not have NOTION_METADATA in its front matter`)
+      console.warn(`[Warn] ${filepath} does not have NOTION_METADATA in its front matter, it will not be managed.`)
     }
   }
   return fileArray

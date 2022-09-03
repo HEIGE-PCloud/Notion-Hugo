@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import fs from "fs-extra";
 import { savePage } from "./render";
 import { loadConfig } from "./config";
-import { getContentFile } from "./file";
+import { getAllContentFiles, getContentFile } from "./file";
 import path from "path";
 import { getFileName, getPageTitle } from "./helpers";
 
@@ -19,6 +19,8 @@ async function main() {
     auth: process.env.NOTION_TOKEN,
   });
 
+  const page_ids: string[] = []
+
   // process mounted databases
   for (const mount of config.mount.databases) {
     fs.ensureDirSync(`content/${mount.target_folder}`);
@@ -26,6 +28,7 @@ async function main() {
       database_id: mount.database_id,
     })) {
       if (!isFullPage(page)) continue;
+      page_ids.push(page.id)
       const postpath = path.join(
         "content",
         mount.target_folder,
@@ -50,6 +53,7 @@ async function main() {
   for (const mount of config.mount.pages) {
     const page = await notion.pages.retrieve({ page_id: mount.page_id });
     if (!isFullPage(page)) continue;
+    page_ids.push(page.id)
     const postpath = path.join(
       "content",
       mount.target_folder,
@@ -68,6 +72,15 @@ async function main() {
     console.info(`Updating ${postpath}`);
     await savePage(page, notion, mount);
   }
+
+  // remove posts that exist locally but not in Notion Database
+  const contentFiles = getAllContentFiles('content')
+  for (const file of contentFiles) {
+    if (!page_ids.includes(file.metadata.id)) {
+      fs.removeSync(file.filepath)
+    }
+  }
+  
 }
 
 main()
