@@ -64,6 +64,7 @@ jobs:
           hugo -e DoIt
 
       - name: Commit updated content
+        if: github.repository != 'HEIGE-PCloud/Notion-Hugo'
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Sync content with Notion
