@@ -1,8 +1,6 @@
 import { Client, isFullPage } from "@notionhq/client";
 import {
-  PageObjectResponse,
-  PropertyItemListResponse,
-  TitlePropertyItemObjectResponse,
+  PageObjectResponse
 } from "@notionhq/client/build/src/api-endpoints";
 
 export function getPageTitle(page: PageObjectResponse): string {
@@ -18,12 +16,18 @@ export function getPageTitle(page: PageObjectResponse): string {
 export async function getCoverLink(
   page_id: string,
   notion: Client
-): Promise<string | null> {
+): Promise<{link: string, expiry_time: string | null} | null> {
   const page = await notion.pages.retrieve({ page_id });
   if (!isFullPage(page)) return null;
   if (page.cover === null) return null;
-  if (page.cover.type === "external") return page.cover.external.url;
-  else return page.cover.file.url;
+  if (page.cover.type === "external") return {
+    link: page.cover.external.url,
+    expiry_time: null
+  };
+  else return {
+    link: page.cover.file.url,
+    expiry_time: page.cover.file.expiry_time
+  };
 }
 
 export function getFileName(title: string, page_id: string): string {

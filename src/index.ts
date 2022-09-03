@@ -37,8 +37,9 @@ async function main() {
       const post = getContentFile(postpath);
       if (post) {
         const metadata = post?.metadata;
-        // if the page is not modified, continue
-        if (metadata.last_edited_time === page.last_edited_time) {
+        // if the page does not contain any resources which expires
+        // and if the page is not modified, continue
+        if (post.expiry_time == null && metadata.last_edited_time === page.last_edited_time) {
           console.info(`[Info] The post ${postpath} is up-to-date, skipped.`);
           continue;
         }
@@ -63,7 +64,7 @@ async function main() {
     if (post) {
       const metadata = post?.metadata;
       // if the page is not modified, continue
-      if (metadata.last_edited_time === page.last_edited_time) {
+      if (post.expiry_time == null && metadata.last_edited_time === page.last_edited_time) {
         console.info(`[Info] The post ${postpath} is up-to-date, skipped.`);
         continue;
       }

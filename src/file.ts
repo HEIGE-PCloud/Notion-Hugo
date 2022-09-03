@@ -9,6 +9,7 @@ type ContentFile = {
   filepath: string;
   // metadata
   metadata: PageObjectResponse;
+  expiry_time: string | null | undefined;
 };
 
 function isMarkdownFile(filename: string): boolean {
@@ -23,7 +24,8 @@ export function getContentFile(filepath: string): ContentFile | undefined {
     return {
       filename: path.basename(filepath),
       filepath,
-      metadata
+      metadata,
+      expiry_time: (filedata.attributes as any).EXPIRY_TIME
     }
   } else {
     console.warn(`[Warn] ${filepath} does not have NOTION_METADATA in its front matter`)
@@ -53,7 +55,8 @@ export function getAllContentFiles(
       fileArray.push({
         filename: path.basename(filepath),
         filepath,
-        metadata
+        metadata,
+        expiry_time: (filedata.attributes as any).expiry_time
       })
     } else {
       console.warn(`[Warn] ${filepath} does not have NOTION_METADATA in its front matter, it will not be managed.`)

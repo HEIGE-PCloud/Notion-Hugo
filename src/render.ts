@@ -16,7 +16,25 @@ import { sh } from "./sh";
 import { DatabaseMount, PageMount } from "./config";
 import { getPageTitle, getCoverLink, getFileName } from "./helpers";
 import katex from "katex";
+import { MdBlock } from "@pclouddev/notion-to-markdown/build/types";
 require("katex/contrib/mhchem"); // modify katex module
+
+function getExpiryTime(blocks: MdBlock[], expiry_time: string | undefined = undefined): string | undefined {
+  for (const block of blocks) {
+    if (block.expiry_time !== undefined) {
+      if (expiry_time === undefined) expiry_time = block.expiry_time
+      else expiry_time = expiry_time < block.expiry_time ? expiry_time : block.expiry_time
+    }
+    if (block.children.length > 0) {
+      const child_expiry_time = getExpiryTime(block.children, expiry_time)
+      if (child_expiry_time) {
+        if (expiry_time === undefined) expiry_time = child_expiry_time
+        else expiry_time = expiry_time < child_expiry_time? expiry_time : child_expiry_time
+      }
+    }
+  }
+  return expiry_time
+}
 
 export async function renderPage(page: PageObjectResponse, notion: Client) {
   const n2m = new NotionToMarkdown({ notionClient: notion });
@@ -28,11 +46,14 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
     });
     return html;
   });
+
+  let nearest_expiry_time: string | null = null
   const mdblocks = await n2m.pageToMarkdown(page.id);
+  const page_expiry_time = getExpiryTime(mdblocks)
+  if (page_expiry_time) nearest_expiry_time = page_expiry_time
   const mdString = n2m.toMarkdownString(mdblocks);
   page.properties.Name;
   const title = getPageTitle(page);
-  const featuredImageLink = await getCoverLink(page.id, notion);
   const frontMatter: Record<
     string,
     string | string[] | number | boolean | PageObjectResponse
@@ -44,7 +65,19 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
   };
 
   // set featuredImage
-  if (featuredImageLink) frontMatter.featuredImage = featuredImageLink;
+  const featuredImageLink = await getCoverLink(page.id, notion);
+  if (featuredImageLink) {
+    const { link, expiry_time } = featuredImageLink;
+    frontMatter.featuredImage = link;
+    // update nearest_expiry_time
+    if (expiry_time) {
+      if (nearest_expiry_time) {
+        nearest_expiry_time = expiry_time < nearest_expiry_time ? expiry_time : nearest_expiry_time
+      } else {
+        nearest_expiry_time = expiry_time
+      }
+    }
+  } 
 
   // map page properties to front matter
   for (const property in page.properties) {
@@ -146,6 +179,9 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
 
   // save update time
   frontMatter.UPDATE_TIME = (new Date()).toISOString()
+  // save nearest expiry time
+  if (nearest_expiry_time) frontMatter.EXPIRY_TIME = nearest_expiry_time
+ 
   return {
     title,
     pageString:
@@ -167,7 +203,7 @@ export async function savePage(
   if (!isFullPage(page)) return;
   const { title, pageString } = await renderPage(page, notion);
   const fileName = getFileName(title, page.id);
-  let { stdout } = await sh(
+  await sh(
     `hugo new "${mount.target_folder}/${fileName}"`,
     false
   );
