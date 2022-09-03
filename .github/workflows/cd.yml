@@ -63,6 +63,11 @@ jobs:
           npm start
           hugo -e DoIt
 
+      - name: Commit updated content
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Sync content with Notion
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
