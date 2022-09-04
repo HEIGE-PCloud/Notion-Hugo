@@ -28,6 +28,30 @@ In the capabilities section, select "Read Content" and "Read user information in
 
 Click the submit button to finish creating the Notion integration.
 
+### Setup secrets for GitHub Action
+
+Copy the Internal Integration Token.
+
+<img width="816" alt="image" src="https://user-images.githubusercontent.com/52968553/188298208-23d96254-f8a7-4571-8863-0d920bb82143.png">
+
+Navigate to the GitHub repo you just created, click on the Settings -> Secrets -> Actions.
+
+Click the "New Repository Secret" button on the top right.
+
+<picture>
+<source media="(prefers-color-scheme: light)" width="1129" alt="image" src="https://user-images.githubusercontent.com/52968553/188298394-3fcd97ce-f8a6-428b-b875-ba1f0aa2596a.png">
+<source media="(prefers-color-scheme: dark)" width="1129" alt="image" src="https://user-images.githubusercontent.com/52968553/188298419-a13f6c3f-421f-4749-b723-752f0812fa7c.png">
+<img width="1129" alt="image" src="https://user-images.githubusercontent.com/52968553/188298394-3fcd97ce-f8a6-428b-b875-ba1f0aa2596a.png">
+</picture>
+
+Add a new secret with name `NOTION_TOKEN`, paste the copied token into the secret field. Click the green "Add secret" button to save the change.
+
+<picture>
+<source media="(prefers-color-scheme: light)" width="818" alt="image" src="https://user-images.githubusercontent.com/52968553/188298331-62ba58b4-db27-4740-9a77-ec8d48649e54.png">
+<source media="(prefers-color-scheme: dark)" width="818" alt="image" src="https://user-images.githubusercontent.com/52968553/188298318-3a12b1b6-01d1-4e28-8be1-81b9b118cd6a.png">
+<img width="818" alt="image" src="https://user-images.githubusercontent.com/52968553/188298331-62ba58b4-db27-4740-9a77-ec8d48649e54.png">
+<picture>
+
 ### Duplicate the Notion Template
 
 Duplicate this [Notion Template](https://pcloud.notion.site/Notion-DoIt-04bcc51cfe4c49938229c35e4f0a6fb6
@@ -43,13 +67,7 @@ Visit the page you just duplicated, click the share button on the top right and 
 <img width="552" alt="image" src="https://user-images.githubusercontent.com/52968553/188289212-93e6c208-bfb0-4386-b65d-0b4535d94f6e.png">
 </picture>
 
-### Setup secrets for GitHub Action
-
-`NOTION_TOKEN`
-
 ### Configure you Hugo site
 
 `config/notion.toml`
 `config/_default/config.toml`
-
-
