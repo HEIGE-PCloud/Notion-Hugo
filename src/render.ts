@@ -53,7 +53,10 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
       });
       break;
     case 'shortcode':
-      // TODO: Add math shortcode
+      n2m.setCustomTransformer("equation", async (block) => {
+        const { equation } = block as EquationBlockObjectResponse;
+        return `{{< math >}}\\[${equation}\\]{{< /math >}}`
+      })
       break;
     case 'ssr':
       n2m.setCustomTransformer("equation", async (block) => {
