@@ -50,7 +50,7 @@ Add a new secret with name `NOTION_TOKEN`, paste the copied token into the secre
 <source media="(prefers-color-scheme: light)" width="818" alt="image" src="https://user-images.githubusercontent.com/52968553/188298331-62ba58b4-db27-4740-9a77-ec8d48649e54.png">
 <source media="(prefers-color-scheme: dark)" width="818" alt="image" src="https://user-images.githubusercontent.com/52968553/188298318-3a12b1b6-01d1-4e28-8be1-81b9b118cd6a.png">
 <img width="818" alt="image" src="https://user-images.githubusercontent.com/52968553/188298331-62ba58b4-db27-4740-9a77-ec8d48649e54.png">
-<picture>
+</picture>
 
 ### Duplicate the Notion Template
 
