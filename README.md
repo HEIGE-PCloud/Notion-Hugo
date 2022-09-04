@@ -125,3 +125,5 @@ Visit the wiki to learn advanced concepts about
 ## License
 
 This project is open sourced under the [GNU GPL license v3](https://www.gnu.org/licenses/gpl-3.0.html), you may use the project under the terms if you are creating an open source project under a license compatible with it.
+
+Consider purchasing a [commercial license](https://buy.stripe.com/aEU4ixg529wA1Fu144) if your project is not compatible with GPLv3.
