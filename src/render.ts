@@ -13,7 +13,7 @@ import {
 import { NotionToMarkdown } from "@pclouddev/notion-to-markdown";
 import YAML from "yaml";
 import { sh } from "./sh";
-import { DatabaseMount, PageMount } from "./config";
+import { DatabaseMount, loadConfig, PageMount } from "./config";
 import { getPageTitle, getCoverLink, getFileName } from "./helpers";
 import katex from "katex";
 import { MdBlock } from "@pclouddev/notion-to-markdown/build/types";
@@ -37,15 +37,42 @@ function getExpiryTime(blocks: MdBlock[], expiry_time: string | undefined = unde
 }
 
 export async function renderPage(page: PageObjectResponse, notion: Client) {
+
+  // load formatter config
+  const formatterConfig = loadConfig().formatter;
+  formatterConfig.equation.style
+
   const n2m = new NotionToMarkdown({ notionClient: notion });
-  n2m.setCustomTransformer("equation", async (block) => {
-    const { equation } = block as EquationBlockObjectResponse;
-    const html = katex.renderToString(equation.expression, {
-      throwOnError: false,
-      displayMode: true,
-    });
-    return html;
-  });
+  let frontInjectString = ''
+
+  switch (formatterConfig.equation.style) {
+    case 'markdown':
+      n2m.setCustomTransformer("equation", async (block) => {
+        const { equation } = block as EquationBlockObjectResponse;
+        return `\\[${equation}\\]`;
+      });
+      break;
+    case 'shortcode':
+      n2m.setCustomTransformer("equation", async (block) => {
+        const { equation } = block as EquationBlockObjectResponse;
+        return `{{< math >}}\\[${equation}\\]{{< /math >}}`
+      })
+      break;
+    case 'ssr':
+      n2m.setCustomTransformer("equation", async (block) => {
+        const { equation } = block as EquationBlockObjectResponse;
+        const html = katex.renderToString(equation.expression, {
+          throwOnError: false,
+          displayMode: true,
+        });
+        return html;
+      });
+      frontInjectString += `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css" integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">\n`
+      break
+    default:
+      console.warn('[Warn] invalid notion.toml config')
+      break;
+  }
 
   let nearest_expiry_time: string | null = null
   const mdblocks = await n2m.pageToMarkdown(page.id);
@@ -182,6 +209,8 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
   // save nearest expiry time
   if (nearest_expiry_time) frontMatter.EXPIRY_TIME = nearest_expiry_time
  
+
+
   return {
     title,
     pageString:
@@ -191,6 +220,7 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
         defaultKeyType: "PLAIN",
       }) +
       "\n---\n" +
+      frontInjectString + '\n' +
       mdString,
   };
 }
