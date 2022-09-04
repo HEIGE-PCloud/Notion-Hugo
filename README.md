@@ -6,7 +6,7 @@ Notion-Hugo allows you to use [Notion](https://www.notion.so/) as your CMS and d
 
 ### Create a new repo from this template
 
-Click the green "Use this template" button in the upper-right corner to create your repo from this template.
+Click the green "Use this template" button in the upper-right corner to create your repo from this template. Choose "public" for the repository visibility.
 
 <picture>
   <source width="382" media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/52968553/188245872-0aa640e4-ea85-4fc7-8035-7a267b7a28a2.png">
@@ -100,3 +100,12 @@ Click the commit changes button at the bottom to save the file.
 <source media="(prefers-color-scheme: dark)" width="779" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188318494-b82db93b-cb72-4dcd-acfd-31accdae7ab0.png">
 <img width="779" alt="image" src="https://user-images.githubusercontent.com/52968553/188318414-b45d159c-274a-47e6-9ff6-b01f4e05379c.png">
 </picture>
+
+Wait a minute or so for your site to be built (You can check the progress under the Actions tab). Then navigate to Settings -> Pages, your Hugo site should now be deployed to the GitHub Pages successfully. There is one final step to make your website work correctly.
+
+<img width="1093" alt="image" src="https://user-images.githubusercontent.com/52968553/188319711-3fd3ae82-c214-4245-b57f-a15a909d29fa.png">
+<img width="1093" alt="image" src="https://user-images.githubusercontent.com/52968553/188319720-0acf810a-fdef-4ecc-aafc-40b8164a3c4f.png">
+
+Copy the url of your new website, and go to file `config/_default/config.toml` and change the `baseURL` from `https://example.org/` to the url you just copied. Commit the changes and wait for your website to be deployed again.
+
+Now, visit your website again and you will see your content from Notion is rendered into static webpages correctly.
