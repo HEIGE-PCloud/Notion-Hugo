@@ -103,9 +103,25 @@ Click the commit changes button at the bottom to save the file.
 
 Wait a minute or so for your site to be built (You can check the progress under the Actions tab). Then navigate to Settings -> Pages, your Hugo site should now be deployed to the GitHub Pages successfully. There is one final step to make your website work correctly.
 
+<picture>
+<source media="(prefers-color-scheme: light)" width="1093" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188319711-3fd3ae82-c214-4245-b57f-a15a909d29fa.png">
+<source media="(prefers-color-scheme: dark)" width="1093" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188319720-0acf810a-fdef-4ecc-aafc-40b8164a3c4f.png">
 <img width="1093" alt="image" src="https://user-images.githubusercontent.com/52968553/188319711-3fd3ae82-c214-4245-b57f-a15a909d29fa.png">
-<img width="1093" alt="image" src="https://user-images.githubusercontent.com/52968553/188319720-0acf810a-fdef-4ecc-aafc-40b8164a3c4f.png">
+</picture>
 
 Copy the url of your new website, and go to file `config/_default/config.toml` and change the `baseURL` from `https://example.org/` to the url you just copied. Commit the changes and wait for your website to be deployed again.
 
 Now, visit your website again and you will see your content from Notion is rendered into static webpages correctly.
+
+## Next Step
+
+Visit the wiki to learn advanced concepts about
+
+- Pick a different Hugo theme
+- Deploy to other platforms
+- Configure Notion-DoIt
+- Configure Hugo
+
+## License
+
+This project is open sourced under the [GNU GPL license v3](https://www.gnu.org/licenses/gpl-3.0.html), you may use the project under the terms if you are creating an open source project under a license compatible with it.
