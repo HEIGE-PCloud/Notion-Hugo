@@ -39,16 +39,16 @@ Navigate to the GitHub repo you just created, click on the Settings -> Secrets -
 Click the "New Repository Secret" button on the top right.
 
 <picture>
-<source media="(prefers-color-scheme: light)" width="1148" alt="image" src="https://user-images.githubusercontent.com/52968553/188298495-f4b1aa17-fff2-4b5e-adab-2aaddce22262.png">
-<source media="(prefers-color-scheme: dark)" width="1148" alt="image" src="https://user-images.githubusercontent.com/52968553/188298501-b479534e-db88-4c07-9e72-6bf9f9fd5a8d.png">
+<source media="(prefers-color-scheme: light)" width="1148" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188298495-f4b1aa17-fff2-4b5e-adab-2aaddce22262.png">
+<source media="(prefers-color-scheme: dark)" width="1148" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188298501-b479534e-db88-4c07-9e72-6bf9f9fd5a8d.png">
 <img width="1148" alt="image" src="https://user-images.githubusercontent.com/52968553/188298495-f4b1aa17-fff2-4b5e-adab-2aaddce22262.png">
 </picture>
 
 Add a new secret with name `NOTION_TOKEN`, paste the copied token into the secret field. Click the green "Add secret" button to save the change.
 
 <picture>
-<source media="(prefers-color-scheme: light)" width="824" alt="image" src="https://user-images.githubusercontent.com/52968553/188298507-5402a19f-dc35-45a9-b7b7-867f38cdb001.png">
-<source media="(prefers-color-scheme: dark)" width="824" alt="image" src="https://user-images.githubusercontent.com/52968553/188298515-3c98fbf3-128e-46ef-971f-b22b6d4da9e1.png">
+<source media="(prefers-color-scheme: light)" width="824" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188298507-5402a19f-dc35-45a9-b7b7-867f38cdb001.png">
+<source media="(prefers-color-scheme: dark)" width="824" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188298515-3c98fbf3-128e-46ef-971f-b22b6d4da9e1.png">
 <img width="824" alt="image" src="https://user-images.githubusercontent.com/52968553/188298507-5402a19f-dc35-45a9-b7b7-867f38cdb001.png">
 </picture>
 
