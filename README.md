@@ -69,5 +69,34 @@ Visit the page you just duplicated, click the share button on the top right and 
 
 ### Configure you Hugo site
 
-`config/notion.toml`
-`config/_default/config.toml`
+On the page you just shared with the integration, click that "share" button again and click the "copy link" button on the bottom right.
+
+<picture>
+<source width="539" alt="image" media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/52968553/188318147-b0bd8af1-b48c-4a10-b313-3789102f00ce.png">
+<source width="528" alt="image" media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/52968553/188318215-8d15e203-f262-495c-9e5f-81d8e1287e30.png">
+<img width="539" alt="image" src="https://user-images.githubusercontent.com/52968553/188318147-b0bd8af1-b48c-4a10-b313-3789102f00ce.png">
+</picture>
+
+Now navigate back to your GitHub repository, open the `notion-hugo.config.ts` file, click to edit the file.
+
+<picture>
+<source media="(prefers-color-scheme: light)" width="379" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188318344-f0b1e7af-f86f-44b5-99b5-74a26410477b.png">
+<source media="(prefers-color-scheme: dark)" width="379" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188318353-930de66c-ab2a-420a-838c-1ac271ae2cba.png">
+<img width="379" alt="image" src="https://user-images.githubusercontent.com/52968553/188318344-f0b1e7af-f86f-44b5-99b5-74a26410477b.png">
+</picture>
+
+Replace the `page_url` with the link you just copied.
+
+<picture>
+<source media="(prefers-color-scheme: light)" width="779" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188318385-0e49a502-14b9-4abd-8496-e14defbf9138.png">
+<source media="(prefers-color-scheme: dark)" width="779" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188318389-0fe16143-772b-4c9f-b958-74eb7d5514b2.png">
+<img width="779" alt="image" src="https://user-images.githubusercontent.com/52968553/188318385-0e49a502-14b9-4abd-8496-e14defbf9138.png">
+</picture>
+
+Click the commit changes button at the bottom to save the file.
+
+<picture>
+<source media="(prefers-color-scheme: light)" width="779" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188318414-b45d159c-274a-47e6-9ff6-b01f4e05379c.png">
+<source media="(prefers-color-scheme: dark)" width="779" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188318494-b82db93b-cb72-4dcd-acfd-31accdae7ab0.png">
+<img width="779" alt="image" src="https://user-images.githubusercontent.com/52968553/188318414-b45d159c-274a-47e6-9ff6-b01f4e05379c.png">
+</picture>
