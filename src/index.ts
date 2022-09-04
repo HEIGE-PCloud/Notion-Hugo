@@ -13,7 +13,7 @@ async function main() {
   if (process.env.NOTION_TOKEN === "")
     throw Error("The NOTION_TOKEN environment vairable is not set.");
 
-  const config = loadConfig();
+  const config = await loadConfig();
 
   const notion = new Client({
     auth: process.env.NOTION_TOKEN,

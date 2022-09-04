@@ -39,7 +39,7 @@ function getExpiryTime(blocks: MdBlock[], expiry_time: string | undefined = unde
 export async function renderPage(page: PageObjectResponse, notion: Client) {
 
   // load formatter config
-  const formatterConfig = loadConfig().formatter;
+  const formatterConfig = (await loadConfig()).formatter;
   formatterConfig.equation.style
 
   const n2m = new NotionToMarkdown({ notionClient: notion });

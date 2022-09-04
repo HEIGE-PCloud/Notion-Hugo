@@ -89,7 +89,7 @@ NOTION_METADATA:
           plain_text: "Equations"
           href: null
   url: "https://www.notion.so/Equations-fa098d33eeed4806a8fcf530f188f40f"
-UPDATE_TIME: "2022-09-03T23:02:23.751Z"
+UPDATE_TIME: "2022-09-04T04:54:28.498Z"
 
 ---
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css" integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">
