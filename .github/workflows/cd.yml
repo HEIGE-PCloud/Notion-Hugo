@@ -42,8 +42,7 @@ jobs:
       - name: Trigger Cloudflare Pages build
         if: startsWith(env.CLOUDFLARE_PAGES_DEPLOY_HOOK, 'https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/')
         run: |
-          curl -X POST ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_HOOK }}
-          echo ${{ env.GITHUB_EVENT_NAME }}
+          echo "event name is:" ${{ github.event_name }} 
 
       - uses: actions/checkout@v3
         with:
