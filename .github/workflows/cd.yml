@@ -28,15 +28,16 @@ defaults:
 
 env:
   NODE_VERSION: 16.x
-  CLOUDFLARE_PAGES_DEPLOY_HOOK: ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_HOOK }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_PAGES_DEPLOY_HOOK: ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_HOOK }}
 
     steps:
       - name: Trigger Cloudflare Pages build
-        if: ${{ startsWith(env.CLOUDFLARE_PAGES_DEPLOY_HOOK, "https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/") }}
+        if: ${{ startsWith(env.CLOUDFLARE_PAGES_DEPLOY_HOOK, "https") }}
         run:
           curl -X POST ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_HOOK }}
 
