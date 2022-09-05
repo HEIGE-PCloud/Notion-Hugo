@@ -12,8 +12,8 @@ dotenv.config();
 async function main() {
   if (process.env.NOTION_TOKEN === "")
     throw Error("The NOTION_TOKEN environment vairable is not set.");
-
   const config = await loadConfig();
+  console.info('[Info] Config loaded ')
 
   const notion = new Client({
     auth: process.env.NOTION_TOKEN,
@@ -21,6 +21,7 @@ async function main() {
 
   const page_ids: string[] = []
 
+  console.info('[Info] Start processing mounted databases')
   // process mounted databases
   for (const mount of config.mount.databases) {
     fs.ensureDirSync(`content/${mount.target_folder}`);
@@ -28,24 +29,8 @@ async function main() {
       database_id: mount.database_id,
     })) {
       if (!isFullPage(page)) continue;
+      console.info(`[Info] Start processing page ${page.id}`)
       page_ids.push(page.id)
-      const postpath = path.join(
-        "content",
-        mount.target_folder,
-        getFileName(getPageTitle(page), page.id)
-      );
-      const post = getContentFile(postpath);
-      if (post) {
-        const metadata = post?.metadata;
-        // if the page does not contain any resources which expires
-        // and if the page is not modified, continue
-        if (post.expiry_time == null && metadata.last_edited_time === page.last_edited_time) {
-          console.info(`[Info] The post ${postpath} is up-to-date, skipped.`);
-          continue;
-        }
-      }
-
-      console.info(`Updating ${postpath}`);
       await savePage(page, notion, mount);
     }
   }
@@ -55,22 +40,6 @@ async function main() {
     const page = await notion.pages.retrieve({ page_id: mount.page_id });
     if (!isFullPage(page)) continue;
     page_ids.push(page.id)
-    const postpath = path.join(
-      "content",
-      mount.target_folder,
-      getFileName(getPageTitle(page), page.id)
-    );
-    const post = getContentFile(postpath);
-    if (post) {
-      const metadata = post?.metadata;
-      // if the page is not modified, continue
-      if (post.expiry_time == null && metadata.last_edited_time === page.last_edited_time) {
-        console.info(`[Info] The post ${postpath} is up-to-date, skipped.`);
-        continue;
-      }
-    }
-    // otherwise update the page
-    console.info(`Updating ${postpath}`);
     await savePage(page, notion, mount);
   }
 

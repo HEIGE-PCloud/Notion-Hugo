@@ -17,6 +17,8 @@ import { DatabaseMount, loadConfig, PageMount } from "./config";
 import { getPageTitle, getCoverLink, getFileName } from "./helpers";
 import katex from "katex";
 import { MdBlock } from "@pclouddev/notion-to-markdown/build/types";
+import path from "path";
+import { getContentFile } from "./file";
 require("katex/contrib/mhchem"); // modify katex module
 
 function getExpiryTime(blocks: MdBlock[], expiry_time: string | undefined = undefined): string | undefined {
@@ -226,11 +228,27 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
 }
 
 export async function savePage(
-  page: GetPageResponse,
+  page: PageObjectResponse,
   notion: Client,
   mount: DatabaseMount | PageMount
 ) {
-  if (!isFullPage(page)) return;
+  const postpath = path.join(
+    "content",
+    mount.target_folder,
+    getFileName(getPageTitle(page), page.id)
+  );
+  const post = getContentFile(postpath);
+  if (post) {
+    const metadata = post.metadata;
+    // if the page is not modified, continue
+    if (post.expiry_time == null && metadata.last_edited_time === page.last_edited_time) {
+      console.info(`[Info] The post ${postpath} is up-to-date, skipped.`);
+      return;
+    }
+  }
+  // otherwise update the page
+  console.info(`[Info] Updating ${postpath}`);
+
   const { title, pageString } = await renderPage(page, notion);
   const fileName = getFileName(title, page.id);
   await sh(
