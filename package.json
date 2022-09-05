@@ -9,6 +9,10 @@
   "bugs": {
     "url": "https://github.com/Hugo-DoIt/Notion-DoIt/issues"
   },
+  "engines": {
+    "node": ">=16",
+    "npm": ">=8"
+  },
   "scripts": {
     "test": "vitest",
     "coverage": "vitest run --coverage",
