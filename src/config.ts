@@ -18,7 +18,7 @@ export type Mount = {
 };
 
 export type EquationFormatter = {
-  style: "markdown" | "shortcode" | "ssr";
+  style: "markdown" | "shortcode" | "html";
 };
 
 export type Formatter = {
@@ -39,7 +39,7 @@ export async function loadConfig(): Promise<Config> {
     },
     formatter: {
       equation: {
-        style: 'ssr'
+        style: 'html'
       }
     }
   }

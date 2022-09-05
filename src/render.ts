@@ -60,7 +60,7 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
         return `{{< math >}}\\[${equation}\\]{{< /math >}}`
       })
       break;
-    case 'ssr':
+    case 'html':
       n2m.setCustomTransformer("equation", async (block) => {
         const { equation } = block as EquationBlockObjectResponse;
         const html = katex.renderToString(equation.expression, {
