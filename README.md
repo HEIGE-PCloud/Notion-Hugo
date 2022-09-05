@@ -1,6 +1,6 @@
 # Notion-Hugo
 
-Notion-Hugo allows you to use [Notion](https://www.notion.so/) as your CMS and deploy your pages as a static website with [Hugo](https://gohugo.io/). So you have the full power of Notion for creating new content, and the powerful Hugo and its wonderful [ecosystem of themes](https://themes.gohugo.io/) will take care of the rest for you.
+Notion-Hugo allows you to use [Notion](https://www.notion.so/) as your CMS and deploy your pages as a static website with [Hugo](https://gohugo.io/). So you have the full power of Notion for creating new content, with Hugo and its wonderful [ecosystem of themes](https://themes.gohugo.io/) take care of the rest for you.
 
 ## Get Started
 
@@ -18,11 +18,11 @@ Click the green "Use this template" button in the upper-right corner to create y
 
 Visit [my integrations](https://www.notion.so/my-integrations) and login with your Notion account.
 
-Click "Create new integration" to create a new internal integration.
+Click on "Create new integration" to create a new internal integration.
 
 <img width="891" alt="image" src="https://user-images.githubusercontent.com/52968553/188289065-d2e3626e-d250-4d42-9fb4-8f641f4807ea.png">
 
-In the capabilities section, select "Read Content" and "Read user information including email address".
+In the capabilities section, select "Read Content" and "Read user information including email address". The "Read Content" permission is necessary for Notion-Hugo to pull your Notion content, and the "Read user information including email address" permission is used to fill front matters with author information. Notion-Hugo does not collect any of your information.
 
 <img width="891" alt="image" src="https://user-images.githubusercontent.com/52968553/188289098-d318ebba-46a5-4d41-bfcd-ac0f09f35f82.png">
 
@@ -34,7 +34,7 @@ Copy the Internal Integration Token.
 
 <img width="816" alt="image" src="https://user-images.githubusercontent.com/52968553/188298208-23d96254-f8a7-4571-8863-0d920bb82143.png">
 
-Navigate to the GitHub repo you just created, click on the Settings -> Secrets -> Actions.
+Navigate to the GitHub repo you just created, click on Settings -> Secrets -> Actions.
 
 Click the "New Repository Secret" button on the top right.
 
@@ -69,7 +69,7 @@ Visit the page you just duplicated, click the share button on the top right and 
 
 ### Configure you Hugo site
 
-On the page you just shared with the integration, click that "share" button again and click the "copy link" button on the bottom right.
+On the page you just shared with the integration, click on the "share" button again, then click the "copy link" button on the bottom right to copy the link to this page.
 
 <picture>
 <source width="539" alt="image" media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/52968553/188318147-b0bd8af1-b48c-4a10-b313-3789102f00ce.png">
@@ -101,7 +101,7 @@ Click the commit changes button at the bottom to save the file.
 <img width="779" alt="image" src="https://user-images.githubusercontent.com/52968553/188318414-b45d159c-274a-47e6-9ff6-b01f4e05379c.png">
 </picture>
 
-Wait a minute or so for your site to be built (You can check the progress under the Actions tab). Then navigate to Settings -> Pages, your Hugo site should now be deployed to the GitHub Pages successfully. There is one final step to make your website work correctly.
+Wait a minute or so for your site to be built. You can check the progress under the Actions tab, the CD workflow is building and deploying your site. Then navigate to Settings -> Pages, your Hugo site should now be deployed to the GitHub Pages.
 
 <picture>
 <source media="(prefers-color-scheme: light)" width="1093" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188319711-3fd3ae82-c214-4245-b57f-a15a909d29fa.png">
@@ -109,18 +109,17 @@ Wait a minute or so for your site to be built (You can check the progress under 
 <img width="1093" alt="image" src="https://user-images.githubusercontent.com/52968553/188319711-3fd3ae82-c214-4245-b57f-a15a909d29fa.png">
 </picture>
 
-Copy the url of your new website, and go to file `config/_default/config.toml` and change the `baseURL` from `https://example.org/` to the url you just copied. Commit the changes and wait for your website to be deployed again.
+There is one final step to make your website work correctly. Copy the url of your new website, then go to file `config/_default/config.toml` and change the `baseURL` from `https://example.org/` to the url you just copied. Commit the changes and wait for your website to be deployed again.
 
-Now, visit your website again and you will see your content from Notion is rendered into static webpages correctly.
+Now, visit your website again and you will see your content from Notion is rendered into static webpages successfully.
 
 ## Next Step
 
-Visit the wiki to learn advanced concepts about
+Visit the [wiki](https://github.com/HEIGE-PCloud/Notion-Hugo/wiki) to learn more about how to
 
 - Pick a different Hugo theme
 - Deploy to other platforms
 - Configure Notion-DoIt
-- Configure Hugo
 
 ## License
 
