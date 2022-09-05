@@ -41,8 +41,9 @@ jobs:
           echo $
       - name: Trigger Cloudflare Pages build
         if: startsWith(env.CLOUDFLARE_PAGES_DEPLOY_HOOK, 'https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/')
-        run:
+        run: |
           curl -X POST ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_HOOK }}
+          echo $GITHUB_EVENT_NAME
 
       - uses: actions/checkout@v3
         with:
