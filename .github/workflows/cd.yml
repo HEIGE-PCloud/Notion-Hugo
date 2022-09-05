@@ -28,6 +28,7 @@ defaults:
 
 env:
   NODE_VERSION: 16.x
+  CLOUDFLARE_PAGES_DEPLOY_HOOK: ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_HOOK }}
 
 jobs:
   build:
@@ -35,7 +36,7 @@ jobs:
 
     steps:
       - name: Trigger Cloudflare Pages build
-        if: ${{ startsWith(secrets.CLOUDFLARE_PAGES_DEPLOY_HOOK, "https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/") }}
+        if: ${{ startsWith(env.CLOUDFLARE_PAGES_DEPLOY_HOOK, "https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/") }}
         run:
           curl -X POST ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_HOOK }}
 
