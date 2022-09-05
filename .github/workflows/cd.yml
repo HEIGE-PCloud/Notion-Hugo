@@ -37,7 +37,7 @@ jobs:
 
     steps:
       - name: Trigger Cloudflare Pages build
-        if: ${{ startsWith(env.CLOUDFLARE_PAGES_DEPLOY_HOOK, 'https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/') && (env.GITHUB_EVENT_NAME == 'schedule' || env.GITHUB_EVENT_NAME == 'workflow_dispatch') }}
+        if: startsWith(env.CLOUDFLARE_PAGES_DEPLOY_HOOK, 'https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/') && (env.GITHUB_EVENT_NAME == 'schedule' || env.GITHUB_EVENT_NAME == 'workflow_dispatch')
         run:
           curl -X POST ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_HOOK }}
 
