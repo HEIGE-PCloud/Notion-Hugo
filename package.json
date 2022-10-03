@@ -31,7 +31,7 @@
   "dependencies": {
     "@notionhq/client": "^2.2.0",
     "@pclouddev/notion-to-markdown": "^2.7.1",
-    "dotenv": "^16.0.2",
+    "dotenv": "^16.0.3",
     "front-matter": "^4.0.2",
     "fs-extra": "^10.1.0",
     "katex": "^0.16.2",
