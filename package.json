@@ -33,7 +33,7 @@
     "@pclouddev/notion-to-markdown": "^2.7.1",
     "dotenv": "^16.0.3",
     "front-matter": "^4.0.2",
-    "fs-extra": "^11.1.0",
+    "fs-extra": "^11.1.1",
     "katex": "^0.16.4",
     "yaml": "^2.2.1"
   },
