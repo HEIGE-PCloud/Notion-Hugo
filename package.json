@@ -29,7 +29,7 @@
   ],
   "author": "HEIGE-PCloud",
   "dependencies": {
-    "@notionhq/client": "^2.2.3",
+    "@notionhq/client": "^2.2.4",
     "@pclouddev/notion-to-markdown": "^2.7.1",
     "dotenv": "^16.0.3",
     "front-matter": "^4.0.2",
