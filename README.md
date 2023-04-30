@@ -34,23 +34,23 @@ Click the submit button to finish creating the Notion integration.
 
 Copy the Internal Integration Token.
 
-<img width="816" alt="image" src="https://user-images.githubusercontent.com/52968553/188298208-23d96254-f8a7-4571-8863-0d920bb82143.png">
+<img width="816" alt="Copy the Internal Integration Token" src="https://user-images.githubusercontent.com/52968553/188298208-23d96254-f8a7-4571-8863-0d920bb82143.png">
 
 Navigate to the GitHub repo you just created, click on Settings -> Secrets -> Actions.
 
 Click the "New Repository Secret" button on the top right.
 
 <picture>
-<source media="(prefers-color-scheme: light)" width="1148" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188298495-f4b1aa17-fff2-4b5e-adab-2aaddce22262.png">
-<source media="(prefers-color-scheme: dark)" width="1148" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188298501-b479534e-db88-4c07-9e72-6bf9f9fd5a8d.png">
+<source media="(prefers-color-scheme: light)" width="1148" srcset="https://user-images.githubusercontent.com/52968553/188298495-f4b1aa17-fff2-4b5e-adab-2aaddce22262.png">
+<source media="(prefers-color-scheme: dark)" width="1148" srcset="https://user-images.githubusercontent.com/52968553/188298501-b479534e-db88-4c07-9e72-6bf9f9fd5a8d.png">
 <img width="1148" alt="Setup secrets for GitHub Action" src="https://user-images.githubusercontent.com/52968553/188298495-f4b1aa17-fff2-4b5e-adab-2aaddce22262.png">
 </picture>
 
 Add a new secret with name `NOTION_TOKEN`, paste the copied token into the secret field. Click the green "Add secret" button to save the change.
 
 <picture>
-<source media="(prefers-color-scheme: light)" width="824" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188298507-5402a19f-dc35-45a9-b7b7-867f38cdb001.png">
-<source media="(prefers-color-scheme: dark)" width="824" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188298515-3c98fbf3-128e-46ef-971f-b22b6d4da9e1.png">
+<source media="(prefers-color-scheme: light)" width="824" srcset="https://user-images.githubusercontent.com/52968553/188298507-5402a19f-dc35-45a9-b7b7-867f38cdb001.png">
+<source media="(prefers-color-scheme: dark)" width="824" srcset="https://user-images.githubusercontent.com/52968553/188298515-3c98fbf3-128e-46ef-971f-b22b6d4da9e1.png">
 <img width="824" alt="Add secret NOTION_TOKEN" src="https://user-images.githubusercontent.com/52968553/188298507-5402a19f-dc35-45a9-b7b7-867f38cdb001.png">
 </picture>
 
@@ -75,40 +75,40 @@ On the page you just shared with the integration, click on the "share" button ag
 
 <picture>
 <source width="539" media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/52968553/188318147-b0bd8af1-b48c-4a10-b313-3789102f00ce.png">
-<source width="528" alt="image" media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/52968553/188318215-8d15e203-f262-495c-9e5f-81d8e1287e30.png">
-<img width="539" alt="image" src="https://user-images.githubusercontent.com/52968553/188318147-b0bd8af1-b48c-4a10-b313-3789102f00ce.png">
+<source width="528" media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/52968553/188318215-8d15e203-f262-495c-9e5f-81d8e1287e30.png">
+<img width="539" alt="Copy link" src="https://user-images.githubusercontent.com/52968553/188318147-b0bd8af1-b48c-4a10-b313-3789102f00ce.png">
 </picture>
 
 Now navigate back to your GitHub repository, open the `notion-hugo.config.ts` file, click to edit the file.
 
 <picture>
-<source media="(prefers-color-scheme: light)" width="379" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188318344-f0b1e7af-f86f-44b5-99b5-74a26410477b.png">
-<source media="(prefers-color-scheme: dark)" width="379" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188318353-930de66c-ab2a-420a-838c-1ac271ae2cba.png">
-<img width="379" alt="image" src="https://user-images.githubusercontent.com/52968553/188318344-f0b1e7af-f86f-44b5-99b5-74a26410477b.png">
+<source media="(prefers-color-scheme: light)" width="379" srcset="https://user-images.githubusercontent.com/52968553/188318344-f0b1e7af-f86f-44b5-99b5-74a26410477b.png">
+<source media="(prefers-color-scheme: dark)" width="379" srcset="https://user-images.githubusercontent.com/52968553/188318353-930de66c-ab2a-420a-838c-1ac271ae2cba.png">
+<img width="379" alt="Edit the file on GitHub" src="https://user-images.githubusercontent.com/52968553/188318344-f0b1e7af-f86f-44b5-99b5-74a26410477b.png">
 </picture>
 
 Replace the `page_url` with the link you just copied.
 
 <picture>
-<source media="(prefers-color-scheme: light)" width="779" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188318385-0e49a502-14b9-4abd-8496-e14defbf9138.png">
-<source media="(prefers-color-scheme: dark)" width="779" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188318389-0fe16143-772b-4c9f-b958-74eb7d5514b2.png">
-<img width="779" alt="image" src="https://user-images.githubusercontent.com/52968553/188318385-0e49a502-14b9-4abd-8496-e14defbf9138.png">
+<source media="(prefers-color-scheme: light)" width="779" srcset="https://user-images.githubusercontent.com/52968553/188318385-0e49a502-14b9-4abd-8496-e14defbf9138.png">
+<source media="(prefers-color-scheme: dark)" width="779" srcset="https://user-images.githubusercontent.com/52968553/188318389-0fe16143-772b-4c9f-b958-74eb7d5514b2.png">
+<img width="779" alt="Replace page_url" src="https://user-images.githubusercontent.com/52968553/188318385-0e49a502-14b9-4abd-8496-e14defbf9138.png">
 </picture>
 
 Click the commit changes button at the bottom to save the file.
 
 <picture>
-<source media="(prefers-color-scheme: light)" width="779" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188318414-b45d159c-274a-47e6-9ff6-b01f4e05379c.png">
-<source media="(prefers-color-scheme: dark)" width="779" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188318494-b82db93b-cb72-4dcd-acfd-31accdae7ab0.png">
-<img width="779" alt="image" src="https://user-images.githubusercontent.com/52968553/188318414-b45d159c-274a-47e6-9ff6-b01f4e05379c.png">
+<source media="(prefers-color-scheme: light)" width="779" srcset="https://user-images.githubusercontent.com/52968553/188318414-b45d159c-274a-47e6-9ff6-b01f4e05379c.png">
+<source media="(prefers-color-scheme: dark)" width="779" srcset="https://user-images.githubusercontent.com/52968553/188318494-b82db93b-cb72-4dcd-acfd-31accdae7ab0.png">
+<img width="779" alt="Commit changes" src="https://user-images.githubusercontent.com/52968553/188318414-b45d159c-274a-47e6-9ff6-b01f4e05379c.png">
 </picture>
 
 Navigate to Settings -> Pages to enable GitHub Pages for your repository.
 
 <picture>
-<source media="(prefers-color-scheme: light)" width="719" alt="image" srcset="https://user-images.githubusercontent.com/52968553/235363799-db61e5ea-83ef-41ef-b19f-09314db296b0.png">
-<source media="(prefers-color-scheme: dark)" width="719" alt="image" srcset="https://user-images.githubusercontent.com/52968553/235363817-72cb9203-2b2a-4da1-b6c0-260a31257696.png">
-<img width="719" alt="image" src="https://user-images.githubusercontent.com/52968553/235363799-db61e5ea-83ef-41ef-b19f-09314db296b0.png"></picture>
+<source media="(prefers-color-scheme: light)" width="719" srcset="https://user-images.githubusercontent.com/52968553/235363799-db61e5ea-83ef-41ef-b19f-09314db296b0.png">
+<source media="(prefers-color-scheme: dark)" width="719" srcset="https://user-images.githubusercontent.com/52968553/235363817-72cb9203-2b2a-4da1-b6c0-260a31257696.png">
+<img width="719" alt="Enable GitHub Pages" src="https://user-images.githubusercontent.com/52968553/235363799-db61e5ea-83ef-41ef-b19f-09314db296b0.png"></picture>
 
 There is one final step to make your website work correctly. Copy the url of your new website, then go to file `config/_default/config.toml` and change the `baseURL` from `https://example.org/` to the url you just copied. Commit the changes and wait for your website to be deployed.
 
