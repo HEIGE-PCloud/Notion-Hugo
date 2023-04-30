@@ -22,11 +22,11 @@ Visit [my integrations](https://www.notion.so/my-integrations) and login with yo
 
 Click on "Create new integration" to create a new internal integration.
 
-<img width="891" alt="image" src="https://user-images.githubusercontent.com/52968553/188289065-d2e3626e-d250-4d42-9fb4-8f641f4807ea.png">
+<img width="891" alt="Create new integration" src="https://user-images.githubusercontent.com/52968553/188289065-d2e3626e-d250-4d42-9fb4-8f641f4807ea.png">
 
 In the capabilities section, select "Read Content" and "Read user information including email address". The "Read Content" permission is necessary for Notion-Hugo to pull your Notion content, and the "Read user information including email address" permission is used to fill front matters with author information. Notion-Hugo does not collect any of your information.
 
-<img width="891" alt="image" src="https://user-images.githubusercontent.com/52968553/188289098-d318ebba-46a5-4d41-bfcd-ac0f09f35f82.png">
+<img width="891" alt="Setup capabilities" src="https://user-images.githubusercontent.com/52968553/188289098-d318ebba-46a5-4d41-bfcd-ac0f09f35f82.png">
 
 Click the submit button to finish creating the Notion integration.
 
@@ -43,7 +43,7 @@ Click the "New Repository Secret" button on the top right.
 <picture>
 <source media="(prefers-color-scheme: light)" width="1148" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188298495-f4b1aa17-fff2-4b5e-adab-2aaddce22262.png">
 <source media="(prefers-color-scheme: dark)" width="1148" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188298501-b479534e-db88-4c07-9e72-6bf9f9fd5a8d.png">
-<img width="1148" alt="image" src="https://user-images.githubusercontent.com/52968553/188298495-f4b1aa17-fff2-4b5e-adab-2aaddce22262.png">
+<img width="1148" alt="Setup secrets for GitHub Action" src="https://user-images.githubusercontent.com/52968553/188298495-f4b1aa17-fff2-4b5e-adab-2aaddce22262.png">
 </picture>
 
 Add a new secret with name `NOTION_TOKEN`, paste the copied token into the secret field. Click the green "Add secret" button to save the change.
@@ -51,7 +51,7 @@ Add a new secret with name `NOTION_TOKEN`, paste the copied token into the secre
 <picture>
 <source media="(prefers-color-scheme: light)" width="824" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188298507-5402a19f-dc35-45a9-b7b7-867f38cdb001.png">
 <source media="(prefers-color-scheme: dark)" width="824" alt="image" srcset="https://user-images.githubusercontent.com/52968553/188298515-3c98fbf3-128e-46ef-971f-b22b6d4da9e1.png">
-<img width="824" alt="image" src="https://user-images.githubusercontent.com/52968553/188298507-5402a19f-dc35-45a9-b7b7-867f38cdb001.png">
+<img width="824" alt="Add secret NOTION_TOKEN" src="https://user-images.githubusercontent.com/52968553/188298507-5402a19f-dc35-45a9-b7b7-867f38cdb001.png">
 </picture>
 
 ### Duplicate the Notion Template
@@ -59,14 +59,14 @@ Add a new secret with name `NOTION_TOKEN`, paste the copied token into the secre
 Duplicate this [Notion Template](https://pcloud.notion.site/Notion-DoIt-04bcc51cfe4c49938229c35e4f0a6fb6
 ) into your own workspace.
 
-### Share the Notion Page with the integration
+### Add connection to the Notion Page
 
-Visit the page you just duplicated, click the share button on the top right and share it with the integration you just created.
+Visit the page you just duplicated, click the ellipsis button on the top right and add the integration you just created as a connection.
 
 <picture>
-<source width="552" media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/52968553/188289212-93e6c208-bfb0-4386-b65d-0b4535d94f6e.png">
-<source width="552" media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/52968553/188289204-16fb52f2-b643-47d3-a2a2-c9e71be55bda.png">
-<img width="552" alt="image" src="https://user-images.githubusercontent.com/52968553/188289212-93e6c208-bfb0-4386-b65d-0b4535d94f6e.png">
+<source width="553" media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/52968553/235363588-5083d629-258f-4d46-8977-fedc0285cac0.png">
+<source width="553" media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/52968553/235363618-5458ea76-89c5-4817-9ea3-4d2267b34b08.png">
+<img width="553" alt="Add connection to the Notion Page" src="https://user-images.githubusercontent.com/52968553/235363588-5083d629-258f-4d46-8977-fedc0285cac0.png">
 </picture>
 
 ### Configure you Hugo site
@@ -74,7 +74,7 @@ Visit the page you just duplicated, click the share button on the top right and 
 On the page you just shared with the integration, click on the "share" button again, then click the "copy link" button on the bottom right to copy the link to this page.
 
 <picture>
-<source width="539" alt="image" media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/52968553/188318147-b0bd8af1-b48c-4a10-b313-3789102f00ce.png">
+<source width="539" media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/52968553/188318147-b0bd8af1-b48c-4a10-b313-3789102f00ce.png">
 <source width="528" alt="image" media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/52968553/188318215-8d15e203-f262-495c-9e5f-81d8e1287e30.png">
 <img width="539" alt="image" src="https://user-images.githubusercontent.com/52968553/188318147-b0bd8af1-b48c-4a10-b313-3789102f00ce.png">
 </picture>
