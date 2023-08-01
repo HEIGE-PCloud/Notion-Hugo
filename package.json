@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.1",
-    "@types/katex": "^0.16.0",
+    "@types/katex": "^0.16.2",
     "@types/node": "^20.3.3",
     "prettier": "^2.8.8",
     "ts-node": "^10.9.1",
