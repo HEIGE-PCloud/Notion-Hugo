@@ -45,6 +45,9 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
   formatterConfig.equation.style
 
   const n2m = new NotionToMarkdown({ notionClient: notion });
+  n2m.setUnsupportedTransformer((type) => {
+    return `{{< notion-unsupported-block type=${type} >}}`
+  })
   let frontInjectString = ''
 
   switch (formatterConfig.equation.style) {
