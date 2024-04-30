@@ -33,7 +33,7 @@
     "front-matter": "^4.0.2",
     "fs-extra": "^11.2.0",
     "katex": "^0.16.10",
-    "yaml": "^2.4.1"
+    "yaml": "^2.4.2"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
