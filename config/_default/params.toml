@@ -1,0 +1,10 @@
+version = "0.3.X"
+[page]
+[page.math]
+enable = true
+blockLeftDelimiter = "\\["
+blockRightDelimiter = "\\]"
+inlineLeftDelimiter = "\\("
+inlineRightDelimiter = "\\)"
+copyTex = true
+mhchem = true
