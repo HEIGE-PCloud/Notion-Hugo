@@ -27,4 +27,4 @@ const userConfig: UserConfig = {
     }
 }
 
-module.exports = userConfig
+export default userConfig;

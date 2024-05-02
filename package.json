@@ -28,16 +28,14 @@
   "author": "HEIGE-PCloud",
   "dependencies": {
     "@notionhq/client": "^2.2.15",
-    "@pclouddev/notion-to-markdown": "^2.7.14",
+    "@pclouddev/notion-to-markdown": "^2.7.15",
     "dotenv": "^16.4.5",
     "front-matter": "^4.0.2",
     "fs-extra": "^11.2.0",
-    "katex": "^0.16.10",
     "yaml": "^2.4.2"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
-    "@types/katex": "^0.16.7",
     "@types/node": "^20.12.7",
     "prettier": "^3.2.5",
     "ts-node": "^10.9.2",
