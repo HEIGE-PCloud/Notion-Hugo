@@ -41,44 +41,11 @@ function getExpiryTime(blocks: MdBlock[], expiry_time: string | undefined = unde
 export async function renderPage(page: PageObjectResponse, notion: Client) {
 
   // load formatter config
-  const formatterConfig = (await loadConfig()).formatter;
-  formatterConfig.equation.style
-
   const n2m = new NotionToMarkdown({ notionClient: notion });
   n2m.setUnsupportedTransformer((type) => {
     return `{{< notion-unsupported-block type=${type} >}}`
   })
   let frontInjectString = ''
-
-  switch (formatterConfig.equation.style) {
-    case 'markdown':
-      n2m.setCustomTransformer("equation", async (block) => {
-        const { equation } = block as EquationBlockObjectResponse;
-        return `\\[${equation}\\]`;
-      });
-      break;
-    case 'shortcode':
-      n2m.setCustomTransformer("equation", async (block) => {
-        const { equation } = block as EquationBlockObjectResponse;
-        return `{{< math >}}\\[${equation}\\]{{< /math >}}`
-      })
-      break;
-    case 'html':
-      n2m.setCustomTransformer("equation", async (block) => {
-        const { equation } = block as EquationBlockObjectResponse;
-        const html = katex.renderToString(equation.expression, {
-          throwOnError: false,
-          displayMode: true,
-        });
-        return html;
-      });
-      frontInjectString += `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css" integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">\n`
-      break
-    default:
-      console.warn('[Warn] invalid notion.toml config')
-      break;
-  }
-
   let nearest_expiry_time: string | null = null
   const mdblocks = await n2m.pageToMarkdown(page.id);
   const page_expiry_time = getExpiryTime(mdblocks)

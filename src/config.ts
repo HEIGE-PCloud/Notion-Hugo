@@ -17,17 +17,8 @@ export type Mount = {
   pages: PageMount[];
 };
 
-export type EquationFormatter = {
-  style: "markdown" | "shortcode" | "html";
-};
-
-export type Formatter = {
-  equation: EquationFormatter;
-};
-
 export type Config = {
   mount: Mount;
-  formatter: Formatter;
 };
 
 export async function loadConfig(): Promise<Config> {
@@ -36,11 +27,6 @@ export async function loadConfig(): Promise<Config> {
     mount: {
       databases: [],
       pages: []
-    },
-    formatter: {
-      equation: {
-        style: 'html'
-      }
     }
   }
   // configure mount settings
@@ -78,9 +64,6 @@ export async function loadConfig(): Promise<Config> {
     }
   }
 
-  // configure formatter settings
-  if (userConfig.formatter?.equation) config.formatter.equation = userConfig.formatter.equation
-
   return config;
 }
 
@@ -91,13 +74,8 @@ export type UserMount = {
   pages?: PageMount[];
 }
 
-export type UserFormatter = {
-  equation?: EquationFormatter;
-}
-
 export type UserConfig = {
   mount: UserMount
-  formatter?: UserFormatter
 }
 
 export function defineConfig(config: UserConfig) {
