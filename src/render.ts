@@ -233,11 +233,12 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
 export async function savePage(
   page: PageObjectResponse,
   notion: Client,
-  mount: DatabaseMount | PageMount
+  targetFolder: string,
+  overrideFileName: string | null = null
 ) {
   const postpath = path.join(
     "content",
-    mount.target_folder,
+    targetFolder,
     getFileName(getPageTitle(page), page.id)
   );
   const post = getContentFile(postpath);
@@ -253,10 +254,10 @@ export async function savePage(
   console.info(`[Info] Updating ${postpath}`);
 
   const { title, pageString } = await renderPage(page, notion);
-  const fileName = getFileName(title, page.id);
+  const fileName = overrideFileName || getFileName(title, page.id);
   await sh(
-    `hugo new "${mount.target_folder}/${fileName}"`,
+    `hugo new "${targetFolder}/${fileName}"`,
     false
   );
-  fs.writeFileSync(`content/${mount.target_folder}/${fileName}`, pageString);
+  fs.writeFileSync(`content/${targetFolder}/${fileName}`, pageString);
 }
