@@ -122,6 +122,30 @@ Visit the [wiki](https://github.com/HEIGE-PCloud/Notion-Hugo/wiki) to learn more
 - Deploy to other platforms
 - Configure Notion-DoIt
 
+## FAQ
+
+### Will the notion-hugo blog be synced with me Notion?
+
+Yes. By default, the notion-hugo blog will be re-generated every 1 hour through `CD` action in Github Actions. You can change this in `.github/workflows/cd.yml` using `cron` option:
+
+```
+name: CD
+
+on:
+  ...
+
+  schedule:
+    - cron: '0 * * * *' # run every hour
+```
+
+Be aware that Github will allow you to re-run the job no more often than once per 5 minutes. 
+
+### What if I want to re-deploy immediately as Notion database updates?
+
+This repo at the moment supports only cron option. 
+
+But, as an idea or direction - you could look for ways to listen for updates in Notion database and trigger Github Action when Notion database is updated. Usually webhooks are used for that purpose - but at the moment Notion has no official webhook support. So you would need to find a work around.
+
 ## License
 
 This project is open sourced under the [GNU GPL license v3](https://www.gnu.org/licenses/gpl-3.0.html), you may use the project under the terms if you are creating an open source project under a license compatible with it.
