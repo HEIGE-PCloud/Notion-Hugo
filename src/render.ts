@@ -7,12 +7,12 @@ import {
 import {
   PageObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
-import { NotionToMarkdown } from "@pclouddev/notion-to-markdown";
+import { NotionToMarkdown } from "./markdown/notion-to-md";
 import YAML from "yaml";
 import { sh } from "./sh";
 import { DatabaseMount, PageMount } from "./config";
 import { getPageTitle, getCoverLink, getFileName } from "./helpers";
-import { MdBlock } from "@pclouddev/notion-to-markdown/build/types";
+import { MdBlock } from "./markdown/types";
 import path from "path";
 import { getContentFile } from "./file";
 
