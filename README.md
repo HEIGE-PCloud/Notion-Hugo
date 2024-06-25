@@ -145,9 +145,3 @@ Be aware that Github will allow you to re-run the job no more often than once pe
 This repo at the moment supports only cron option. 
 
 But, as an idea or direction - you could look for ways to listen for updates in Notion database and trigger Github Action when Notion database is updated. Usually webhooks are used for that purpose - but at the moment Notion has no official webhook support. So you would need to find a work around.
-
-## License
-
-This project is open sourced under the [GNU GPL license v3](https://www.gnu.org/licenses/gpl-3.0.html), you may use the project under the terms if you are creating an open source project under a license compatible with it.
-
-Consider purchasing a [commercial license](https://buy.stripe.com/aEU4ixg529wA1Fu144) if your project is not compatible with GPLv3.
