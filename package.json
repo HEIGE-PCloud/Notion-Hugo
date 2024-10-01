@@ -38,7 +38,7 @@
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
     "@types/markdown-table": "^2.0.0",
-    "@types/node": "^22.5.1",
+    "@types/node": "^22.7.4",
     "prettier": "^3.3.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
