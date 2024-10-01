@@ -33,7 +33,7 @@
     "front-matter": "^4.0.2",
     "fs-extra": "^11.2.0",
     "markdown-table": "^2.0.0",
-    "yaml": "^2.5.0"
+    "yaml": "^2.5.1"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
