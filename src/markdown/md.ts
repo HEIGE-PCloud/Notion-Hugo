@@ -10,7 +10,7 @@ import {
 } from "@notionhq/client/build/src/api-endpoints";
 import { CalloutIcon } from "./types";
 import { getPageRelrefFromId } from "./notion";
-import { Client, isFullUser } from "@notionhq/client";
+import { Client } from "@notionhq/client";
 export const inlineCode = (text: string) => {
   return `\`${text}\``;
 };
@@ -109,7 +109,7 @@ ${children || ""}
 };
 
 export const table = (cells: string[][]) => {
-  return markdownTable(cells);
+  return markdownTable.markdownTable(cells);
 };
 
 export const plainText = (textArray: RichTextItemResponse[]) => {
