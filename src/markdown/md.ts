@@ -1,4 +1,4 @@
-import markdownTable from "markdown-table";
+import { markdownTable } from "markdown-table";
 import {
   AudioBlockObjectResponse,
   EquationRichTextItemResponse,
@@ -109,7 +109,7 @@ ${children || ""}
 };
 
 export const table = (cells: string[][]) => {
-  return markdownTable.markdownTable(cells);
+  return markdownTable(cells);
 };
 
 export const plainText = (textArray: RichTextItemResponse[]) => {
