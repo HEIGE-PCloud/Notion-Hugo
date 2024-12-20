@@ -37,7 +37,7 @@ async function setCachedData(
   key: string,
   data: CacheEntry,
 ): Promise<void> {
-  await cache.put(key, JSON.stringify(data));
+  await cache.put(key, JSON.stringify(data), { expirationTtl: 3600 });
 }
 
 export const onRequest: PagesFunction<Env> = async (context) => {
