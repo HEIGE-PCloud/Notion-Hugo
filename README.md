@@ -54,7 +54,7 @@ Visit the page you just duplicated, click the ellipsis button on the top right a
 
 ### Configure you Hugo site
 
-On the page you just shared with the integration, click on the **share** button again, then click the **copy link** button on the bottom right to copy the link to this page.
+On the page you just shared with the integration, click on the **share** button again, then click the **Copy link** button on the bottom right to copy the link to this page.
 
 <picture>
 <source width="539" media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/52968553/188318147-b0bd8af1-b48c-4a10-b313-3789102f00ce.png">
@@ -137,13 +137,13 @@ Finally, we need to configure the baseURL. Visit the **Deployments** tab to chec
 <img width="2559" alt="Edit the file on GitHub" src="https://github.com/user-attachments/assets/52ed73d6-db6c-45ac-a238-d0d50908dba2">
 </picture>
 
-Navigate back to your GitHub repository, change the `base_url` in the [`notion-hugo.config.ts`](https://github.com/HEIGE-PCloud/Notion-Hugo/blob/main/notion-hugo.config.ts) file to the domain of your website. Also update the `baseURL` in [`config/_default/config.toml`](https://github.com/HEIGE-PCloud/Notion-Hugo/blob/main/config/_default/config.toml) file to this value. Click the commit changes button at the bottom to save the file.
+Navigate back to your GitHub repository, change the `base_url` in [`notion-hugo.config.ts`](https://github.com/HEIGE-PCloud/Notion-Hugo/blob/main/notion-hugo.config.ts) to the domain of your website. Also update the `baseURL` in [`config/_default/config.toml`](https://github.com/HEIGE-PCloud/Notion-Hugo/blob/main/config/_default/config.toml) to this value. Click the commit changes button at the bottom to save the file.
 
 Congratulations! Your website is now live at the domain you just configured.
 
 ### Next steps
 
-Pick a [Hugo themes](https://themes.gohugo.io/) you like, and add it to your repository. You can customize the theme to your liking.
+Pick a [Hugo theme](https://themes.gohugo.io/) you like, and add it to your repository. You can customize the theme to your liking.
 
 Use a custom domain for your website. You can add a custom domain in the Cloudflare Pages dashboard. See the [Cloudflare documentation](https://developers.cloudflare.com/pages/configuration/custom-domains/) for more information. The baseURL needs to be updated after changing the domain.
 
