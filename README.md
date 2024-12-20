@@ -142,8 +142,6 @@ Now we need to add a KV namespace for the Cloudflare Functions. Navigate to the 
 
 Now, navigate to **Workers & Pages** > **your_project** > **Settings** > **Bindings**, add a new **KV Namespace** binding, with *Variable name* set to `KV` and the *KV namespace* set to the namespace you just created. Click the **Save** button to save the changes.
 
-<img width="2559" alt="Screenshot 2024-12-20 at 17 07 48" src="https://github.com/user-attachments/assets/6664cee5-02af-40e8-911f-1a82be185e8f" />
-<img width="2559" alt="Screenshot 2024-12-20 at 17 07 55" src="https://github.com/user-attachments/assets/68befd19-b169-413a-9c4f-46cf5de5c830" />
 
 <picture>
 <source media="(prefers-color-scheme: light)" width="2559" srcset="https://github.com/user-attachments/assets/6664cee5-02af-40e8-911f-1a82be185e8f">
