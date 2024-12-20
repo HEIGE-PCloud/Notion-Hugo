@@ -10,7 +10,7 @@ Notion-Hugo deploys your website to Cloudflare Pages, which has a generous free 
 
 ### Create a new GitHub repository from this template
 
-Click the green "Use this template" button in the upper-right corner to create your repo from this template. Choose "public" for the repository visibility.
+Click the green **Use this template** button in the upper-right corner to create your repo from this template. Choose **public** for the repository visibility.
 
 <picture>
   <source width="382" media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/52968553/188245872-0aa640e4-ea85-4fc7-8035-7a267b7a28a2.png">
@@ -22,11 +22,11 @@ Click the green "Use this template" button in the upper-right corner to create y
 
 Visit [my integrations](https://www.notion.so/my-integrations) and login with your Notion account.
 
-Click on "Create new integration" to create a new internal integration.
+Click on **Create new integration** to create a new internal integration.
 
 <img width="891" alt="Create new integration" src="https://user-images.githubusercontent.com/52968553/188289065-d2e3626e-d250-4d42-9fb4-8f641f4807ea.png">
 
-In the capabilities section, select "Read Content" and "Read user information including email address". The "Read Content" permission is necessary for Notion-Hugo to pull your Notion content, and the "Read user information including email address" permission is used to fill front matters with author information. Notion-Hugo does not collect any of your information.
+In the capabilities section, select **Read Content** and **Read user information including email address**. The "Read Content" permission is necessary for Notion-Hugo to pull your Notion content, and the "Read user information including email address" permission is used to fill front matters with author information. Notion-Hugo does not collect any of your information.
 
 <img width="891" alt="Setup capabilities" src="https://user-images.githubusercontent.com/52968553/188289098-d318ebba-46a5-4d41-bfcd-ac0f09f35f82.png">
 
@@ -54,7 +54,7 @@ Visit the page you just duplicated, click the ellipsis button on the top right a
 
 ### Configure you Hugo site
 
-On the page you just shared with the integration, click on the "share" button again, then click the "copy link" button on the bottom right to copy the link to this page.
+On the page you just shared with the integration, click on the **share** button again, then click the **copy link** button on the bottom right to copy the link to this page.
 
 <picture>
 <source width="539" media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/52968553/188318147-b0bd8af1-b48c-4a10-b313-3789102f00ce.png">
@@ -88,7 +88,7 @@ Click the commit changes button at the bottom to save the file.
 
 ### Deploy to Cloudflare Pages
 
-Navigate to the [Cloudflare Pages](https://dash.cloudflare.com/pages) dashboard, click the "Workers & Pages" tab on the left, then click the "Create" button, then select the Pages tab, and click the "Connect to Git" button. Choose Notion-Hugo from the repository list, then click the "Begin Setup" button.
+Navigate to the [Cloudflare Pages](https://dash.cloudflare.com/pages) dashboard, click the **Workers & Pages** tab on the left, then click the **Create** button, then select the **Pages** tab, and click the **Connect to Git** button. Choose Notion-Hugo from the repository list, then click the **Begin Setup** button.
 
 <picture>
 <source media="(prefers-color-scheme: light)" width="2559" srcset="https://github.com/user-attachments/assets/ca5ce9fe-09a9-439f-bd94-ead08c340874">
@@ -105,7 +105,7 @@ Fill in the build settings as follows:
   - `NODE_VERSION`: `22.12.0` (fill in the latest version of Node.js here)
   - `NOTION_TOKEN`: `secret_token` (fill in the token you copied from the Notion integration)
 
-Click the "Save and Deploy" button to deploy your website.
+Click the **Save and Deploy** button to deploy your website.
 
 <picture>
 <source media="(prefers-color-scheme: light)" width="2559" srcset="https://github.com/user-attachments/assets/a84d6b89-2d8f-4bae-adcb-b3d9d05a076b">
@@ -121,7 +121,7 @@ Now we need to add a KV namespace for the Cloudflare Functions. Navigate to the 
 <img width="2559" alt="Edit the file on GitHub" src="https://github.com/user-attachments/assets/7d56b453-8053-4296-b0eb-1a8df2146cc6">
 </picture>
 
-Now, navigate to **Workers & Pages** > **your_project** > **Settings** > **Bindings**, add a new **KV Namespace** binding, with *Variable name* set to `KV` and the *KV namespace* set to the namespace you just created. Click the **Save** button to save the changes.
+Now, navigate to **Workers & Pages** > **your_project** > **Settings** > **Bindings**, add a new **KV Namespace** binding, with **Variable name** set to `KV` and the **KV namespace** set to the namespace you just created. Click the **Save** button to save the changes.
 
 <picture>
 <source media="(prefers-color-scheme: light)" width="2559" srcset="https://github.com/user-attachments/assets/6664cee5-02af-40e8-911f-1a82be185e8f">
@@ -143,15 +143,15 @@ Congratulations! Your website is now live at the domain you just configured.
 
 ### Next steps
 
-Pick a theme from the [Hugo themes](https://themes.gohugo.io/) website, and add it to your repository. You can also customize the theme to your liking.
+Pick a [Hugo themes](https://themes.gohugo.io/) you like, and add it to your repository. You can customize the theme to your liking.
 
-Use a custom domain for your website. You can add a custom domain in the Cloudflare Pages dashboard. See the [Cloudflare documentation](https://developers.cloudflare.com/pages/configuration/custom-domains/) for more information. Don't forget to update the baseURL after changing the domain.
+Use a custom domain for your website. You can add a custom domain in the Cloudflare Pages dashboard. See the [Cloudflare documentation](https://developers.cloudflare.com/pages/configuration/custom-domains/) for more information. The baseURL needs to be updated after changing the domain.
 
 ## FAQ
 
 ### Does Notion-Hugo sync with my Notion?
 
-Yes. By default Notion-Hugo syncs with your Notion every midnight. You can change the schedule in the `.github/workflows/cd.yml` file.
+Yes. By default Notion-Hugo syncs with your Notion every midnight. Any updated content will be committed to the repository. You can change the schedule in the `.github/workflows/cd.yml` file.
 
 ```yaml
 name: CD
