@@ -175,16 +175,7 @@ Yes. By default Notion-Hugo syncs with your Notion every midnight. You can chang
 
 ```yaml
 name: CD
-
 on:
-  ...
-
   schedule:
     - cron: '0 0 * * *'
 ```
-
-<!-- ### What if I want to re-deploy immediately as Notion database updates?
-
-This repo at the moment supports only cron option. 
-
-But, as an idea or direction - you could look for ways to listen for updates in Notion database and trigger Github Action when Notion database is updated. Usually webhooks are used for that purpose - but at the moment Notion has no official webhook support. So you would need to find a work around. -->
