@@ -19,6 +19,7 @@ export type Mount = {
 
 export type Config = {
   mount: Mount;
+  base_url: string;
 };
 
 export async function loadConfig(): Promise<Config> {
@@ -28,6 +29,7 @@ export async function loadConfig(): Promise<Config> {
       databases: [],
       pages: [],
     },
+    base_url: userConfig.base_url,
   };
   // configure mount settings
   if (userConfig.mount.manual) {
@@ -78,6 +80,7 @@ export type UserMount = {
 
 export type UserConfig = {
   mount: UserMount;
+  base_url: string;
 };
 
 export function defineConfig(config: UserConfig) {

@@ -11,7 +11,9 @@ function getFileUrl(block: BlockObjectResponse): string | null {
 }
 
 export const onRequest: PagesFunction<Env> = async (context) => {
-  return new Response(context.env.CF_PAGES_URL, { status: 200 });
+  await context.env.KV.put("test", "test");
+  const test = await context.env.KV.get("test");
+  return new Response(test, { status: 200 });
   const url = new URL(context.request.url);
 
   const blockId = url.searchParams.get("block_id");

@@ -1,6 +1,7 @@
 import { UserConfig } from "./src/config"
 
 const userConfig: UserConfig = {
+    base_url: "https://notion-hugo.pages.dev",
     mount: {
         manual: false,
         page_url: 'https://pcloud.notion.site/Notion-DoIt-04bcc51cfe4c49938229c35e4f0a6fb6',
