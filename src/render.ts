@@ -33,8 +33,7 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
   // set featuredImage
   const featuredImageLink = await getCoverLink(page.id, notion);
   if (featuredImageLink) {
-    const { link, expiry_time } = featuredImageLink;
-    frontMatter.featuredImage = link;
+    frontMatter.featuredImage = featuredImageLink;
   }
 
   // map page properties to front matter
