@@ -6,15 +6,16 @@ interface Env {
   CF_PAGES_URL: string;
 }
 
+type CacheEntry = {
+  data: string;
+  expiration: string;
+}
+
 function getFileUrl(block: BlockObjectResponse): string | null {
   return block[block.type].file?.url;
 }
 
 export const onRequest: PagesFunction<Env> = async (context) => {
-  await context.env.KV.put("test", "test");
-  const test = await context.env.KV.get("test");
-
-  return new Response(test, { status: 200 });
   const url = new URL(context.request.url);
 
   const blockId = url.searchParams.get("block_id");

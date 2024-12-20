@@ -178,6 +178,7 @@ export class NotionToMarkdown {
     return mdBlocks;
   }
 
+
   /**
    * Converts a Notion Block to a Markdown Block
    * @param block - single notion block
@@ -185,16 +186,16 @@ export class NotionToMarkdown {
    */
   async blockToMarkdown(block: GetBlockResponse): Promise<string> {
     if (typeof block !== "object" || !("type" in block)) return "";
-
     const { type } = block;
     if (type in this.customTransformers && !!this.customTransformers[type])
       return await this.customTransformers[type](block);
     switch (type) {
       case "image": {
         const image = block.image;
-        const url =
-          image.type === "external" ? image.external.url : image.file.url;
-        return md.image(plainText(image.caption), url);
+        if (image.type === "external") {
+          return md.image(plainText(image.caption), image.external.url);
+        }
+        return md.image(plainText(image.caption), blockIdToApiUrl(block.id));
       }
       case "divider": {
         return md.divider();

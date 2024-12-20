@@ -1,5 +1,10 @@
 import { Client, isFullBlock, iteratePaginatedAPI } from "@notionhq/client";
 
+declare global {
+  var blockIdToApiUrl: (block_id: string) => string;
+  var pageIdToApiUrl: (page_id: string) => string;
+}
+
 import userDefinedConfig from "../notion-hugo.config";
 
 export type PageMount = {
@@ -19,7 +24,6 @@ export type Mount = {
 
 export type Config = {
   mount: Mount;
-  base_url: string;
 };
 
 export async function loadConfig(): Promise<Config> {
@@ -29,8 +33,14 @@ export async function loadConfig(): Promise<Config> {
       databases: [],
       pages: [],
     },
-    base_url: userConfig.base_url,
   };
+  global.blockIdToApiUrl = function (block_id: string) {
+    return `${userConfig.base_url}/api?block_id=${block_id}`;
+  }
+  global.pageIdToApiUrl = function (page_id: string) {
+    return `${userConfig.base_url}/api?page_id=${page_id}`;
+  }
+
   // configure mount settings
   if (userConfig.mount.manual) {
     if (userConfig.mount.databases)
