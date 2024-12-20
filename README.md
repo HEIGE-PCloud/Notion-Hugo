@@ -1,10 +1,10 @@
 # Notion-Hugo
 
-> Warning: This project is currently under refactor. The main branch might not work as expected.
-
 ![image](https://user-images.githubusercontent.com/52968553/188502839-1de28ae0-6111-4387-99fe-fbc7d87dbc4c.png)
 
 Notion-Hugo allows you to use [Notion](https://www.notion.so/) as your CMS and deploy your pages as a static website with [Hugo](https://gohugo.io/). So you have the full power of Notion for creating new content, with Hugo and its wonderful [ecosystem of themes](https://themes.gohugo.io/) take care of the rest for you.
+
+Notion-Hugo deploys your website to Cloudflare Pages, which has a generous free tier and is easy to set up. Notion-Hugo also uses [Functions](https://developers.cloudflare.com/pages/functions/) and [KV](https://developers.cloudflare.com/kv/) to power your website. Register a [Cloudflare account](https://dash.cloudflare.com/sign-up) and be ready to go.
 
 ## Get Started
 
@@ -105,45 +105,56 @@ Click the commit changes button at the bottom to save the file.
 <img width="779" alt="Commit changes" src="https://user-images.githubusercontent.com/52968553/188318414-b45d159c-274a-47e6-9ff6-b01f4e05379c.png">
 </picture>
 
-Navigate to Settings -> Pages to enable GitHub Pages for your repository.
+### Deploy to Cloudflare Pages
 
-<picture>
-<source media="(prefers-color-scheme: light)" width="719" srcset="https://user-images.githubusercontent.com/52968553/235363799-db61e5ea-83ef-41ef-b19f-09314db296b0.png">
-<source media="(prefers-color-scheme: dark)" width="719" srcset="https://user-images.githubusercontent.com/52968553/235363817-72cb9203-2b2a-4da1-b6c0-260a31257696.png">
-<img width="719" alt="Enable GitHub Pages" src="https://user-images.githubusercontent.com/52968553/235363799-db61e5ea-83ef-41ef-b19f-09314db296b0.png"></picture>
+Navigate to the [Cloudflare Pages](https://dash.cloudflare.com/pages) dashboard, click the "Workers & Pages" tab on the left, then click the "Create" button, then select the Pages tab, and click the "Connect to Git" button. Choose Notion-Hugo from the repository list, then click the "Begin Setup" button.
 
-There is one final step to make your website work correctly. Copy the url of your new website, then go to file `config/_default/config.toml` and change the `baseURL` from `https://example.org/` to the url you just copied. Commit the changes and wait for your website to be deployed.
+Fill in the build settings as follows:
 
-Now, visit your website and you will see your content from Notion is rendered into static webpages successfully.
+- Build command: `npm install; npm start; hugo`
+- Build output directory: `public`
+- Environment variables:
+  - `HUGO_VERSION`: `0.140.0` (fill in the latest version of Hugo here)
+  - `NODE_VERSION`: `22.12.0` (fill in the latest version of Node.js here)
+  - `NOTION_TOKEN`: `secret_token` (fill in the token you copied from the Notion integration)
 
-## Next Step
+Click the "Save and Deploy" button to deploy your website.
 
-Visit the [wiki](https://github.com/HEIGE-PCloud/Notion-Hugo/wiki) to learn more about how to
 
-- Pick a different Hugo theme
-- Deploy to other platforms
-- Configure Notion-DoIt
+Now we need to add a KV namespace for the Cloudflare Functions. Navigate to the **Storage & Database** tab on the left, then click the **KV** tab, then click the **+ Create** button to create a new namespace. You can name it whatever you like.
+
+Now, navigate to **Workers & Pages** > **your_project** > **Settings** > **Bindings**, add a new **KV Namespace** binding, with *Variable name* set to `KV` and the *KV namespace* set to the namespace you just created. Click the **Save** button to save the changes.
+
+### Configure `base_url`
+
+Visit the **Deployments** tab to check the domain of your website (in this case, it is `https://notion-hugo-example.pages.dev`). Navigate back to your GitHub repository, change the `base_url` in the `notion-hugo.config.ts` file to the domain of your website. Also update the `baseURL` in `config/_default/config.toml` file to this value. Click the commit changes button at the bottom to save the file.
+
+Congratulations! Your website is now live at the domain you just configured.
+
+### Next steps
+
+Pick a theme from the [Hugo themes](https://themes.gohugo.io/) website, and add it to your repository. You can also customize the theme to your liking.
+
+Use a custom domain for your website. You can add a custom domain in the Cloudflare Pages dashboard. See the [Cloudflare documentation](https://developers.cloudflare.com/pages/configuration/custom-domains/) for more information. Don't forget to update the baseURL after changing the domain.
 
 ## FAQ
 
-### Will the notion-hugo blog be synced with me Notion?
+### Does Notion-Hugo sync with my Notion?
 
-Yes. By default, the notion-hugo blog will be re-generated every 1 hour through `CD` action in Github Actions. You can change this in `.github/workflows/cd.yml` using `cron` option:
+Yes. By default Notion-Hugo syncs with your Notion every midnight. You can change the schedule in the `.github/workflows/cd.yml` file.
 
-```
+```yaml
 name: CD
 
 on:
   ...
 
   schedule:
-    - cron: '0 * * * *' # run every hour
+    - cron: '0 0 * * *'
 ```
 
-Be aware that Github will allow you to re-run the job no more often than once per 5 minutes. 
-
-### What if I want to re-deploy immediately as Notion database updates?
+<!-- ### What if I want to re-deploy immediately as Notion database updates?
 
 This repo at the moment supports only cron option. 
 
-But, as an idea or direction - you could look for ways to listen for updates in Notion database and trigger Github Action when Notion database is updated. Usually webhooks are used for that purpose - but at the moment Notion has no official webhook support. So you would need to find a work around.
+But, as an idea or direction - you could look for ways to listen for updates in Notion database and trigger Github Action when Notion database is updated. Usually webhooks are used for that purpose - but at the moment Notion has no official webhook support. So you would need to find a work around. -->
