@@ -8,7 +8,7 @@ on:
   schedule:
     - cron: '0 0 * * *' # run everyday at 00:00 UTC https://crontab.guru/every-day-at-midnight
   workflow_dispatch:
-    
+  repository_dispatch:
 
 # Allow one concurrent deployment
 concurrency:
