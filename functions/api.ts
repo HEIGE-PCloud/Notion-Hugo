@@ -1,15 +1,23 @@
-import { Client, isFullBlock } from "@notionhq/client";
+import { Client, isFullBlock, isFullPage } from "@notionhq/client";
+import { BlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 interface Env {
   KV: KVNamespace;
   NOTION_TOKEN?: string;
+  CF_PAGES_URL: string;
+}
+
+function getFileUrl(block: BlockObjectResponse): string | null {
+  return block[block.type].file?.url;
 }
 
 export const onRequest: PagesFunction<Env> = async (context) => {
+  return new Response(context.env.CF_PAGES_URL, { status: 200 });
   const url = new URL(context.request.url);
 
   const blockId = url.searchParams.get("block_id");
-  if (!blockId) {
-    return new Response("block_id is required", { status: 400 });
+  const pageId = url.searchParams.get("page_id");
+  if (!blockId && !pageId) {
+    return new Response("block_id or page_id is required", { status: 400 });
   }
 
   const NOTION_TOKEN = context.env.NOTION_TOKEN;
@@ -21,20 +29,37 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 
   const notion = new Client({ auth: context.env.NOTION_TOKEN });
 
-  const block = await notion.blocks.retrieve({ block_id: blockId });
+  if (blockId) {
+    const block = await notion.blocks.retrieve({ block_id: blockId });
 
-  if (!isFullBlock(block)) {
-    return new Response("Failed to retreve block", { status: 400 });
+    if (!isFullBlock(block)) {
+      return new Response("Failed to retreve block", { status: 400 });
+    }
+
+    const fileUrl = getFileUrl(block);
+    if (!fileUrl) {
+      return new Response("No file url found", {
+        status: 400,
+      });
+    }
+
+    return Response.redirect(fileUrl, 302);
+  } else {
+    const page = await notion.pages.retrieve({ page_id: pageId });
+
+    if (!isFullPage(page)) {
+      return new Response("Failed to retrieve page", { status: 400 });
+    }
+    
+    if (!page.cover) {
+      return new Response("No cover found", { status: 400 });
+    }
+    
+    const fileUrl =
+      page.cover.type === "external"
+        ? page.cover.external.url
+        : page.cover.file.url;
+    
+        return Response.redirect(fileUrl, 302);
   }
-
-  if (block.type !== "image") {
-    return new Response("Only image blocks are supported", { status: 400 });
-  }
-
-  const image_url =
-    block.image.type === "external"
-      ? block.image.external.url
-      : block.image.file.url;
-
-  return Response.redirect(image_url, 302);
 };
