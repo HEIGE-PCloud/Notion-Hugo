@@ -8,6 +8,7 @@ type ContentFile = {
   // relative path to the project folder
   filepath: string;
   metadata: PageObjectResponse;
+  managed: boolean;
 };
 
 function isMarkdownFile(filename: string): boolean {
@@ -25,6 +26,7 @@ export function getContentFile(filepath: string): ContentFile | undefined {
       filename: path.basename(filepath),
       filepath,
       metadata,
+      managed: (filedata.attributes as any).MANAGED_BY_NOTION_HUGO ?? false,
     };
   } else {
     console.warn(
@@ -55,6 +57,7 @@ export function getAllContentFiles(dirPath: string): ContentFile[] {
         filename: path.basename(filepath),
         filepath,
         metadata,
+        managed: (filedata.attributes as any).MANAGED_BY_NOTION_HUGO ?? false,
       });
     } else {
       console.warn(

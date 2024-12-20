@@ -134,6 +134,7 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
 
   // save metadata
   frontMatter.NOTION_METADATA = page;
+  frontMatter.MANAGED_BY_NOTION_HUGO = true;
 
   return {
     title,

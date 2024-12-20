@@ -5,6 +5,7 @@ import { savePage } from "./render";
 import { loadConfig } from "./config";
 import { getAllContentFiles } from "./file";
 import { isFullPageOrDatabase } from "@notionhq/client/build/src/helpers";
+import { getFileName, getPageTitle } from "./helpers";
 
 dotenv.config();
 
@@ -18,7 +19,7 @@ async function main() {
     auth: process.env.NOTION_TOKEN,
   });
 
-  const page_ids: string[] = [];
+  const pages: string[] = [];
 
   console.info("[Info] Start processing mounted databases");
   // process mounted databases
@@ -31,7 +32,7 @@ async function main() {
         continue;
       }
       console.info(`[Info] Start processing page ${page.id}`);
-      page_ids.push(page.id);
+      pages.push(getFileName(getPageTitle(page), page.id));
       await savePage(page, notion, mount);
     }
   }
@@ -39,15 +40,18 @@ async function main() {
   // process mounted pages
   for (const mount of config.mount.pages) {
     const page = await notion.pages.retrieve({ page_id: mount.page_id });
-    if (!isFullPage(page)) continue;
-    page_ids.push(page.id);
+    if (!isFullPage(page)) {
+      continue;
+    }
+    pages.push(getFileName(getPageTitle(page), page.id));
     await savePage(page, notion, mount);
   }
 
   // remove posts that exist locally but not in Notion Database
   const contentFiles = getAllContentFiles("content");
   for (const file of contentFiles) {
-    if (!page_ids.includes(file.metadata.id)) {
+    if (!pages.includes(file.filename) && file) {
+      console.info(`[Info] Removing unsynced file ${file.filepath}`);
       fs.removeSync(file.filepath);
     }
   }
