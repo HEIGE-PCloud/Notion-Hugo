@@ -212,7 +212,7 @@ export class NotionToMarkdown {
       case "file": {
         const file = block.file;
         const link =
-          file.type === "external" ? file.external.url : file.file.url;
+          file.type === "external" ? file.external.url : blockIdToApiUrl(block.id);
         return md.link(file.name, link);
       }
       case "bookmark": {

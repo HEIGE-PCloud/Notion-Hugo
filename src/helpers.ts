@@ -25,7 +25,7 @@ export async function getCoverLink(
     expiry_time: null
   };
   else return {
-    link: page.cover.file.url,
+    link: pageIdToApiUrl(page_id),
     expiry_time: page.cover.file.expiry_time
   };
 }
