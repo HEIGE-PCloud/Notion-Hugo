@@ -109,6 +109,12 @@ Click the commit changes button at the bottom to save the file.
 
 Navigate to the [Cloudflare Pages](https://dash.cloudflare.com/pages) dashboard, click the "Workers & Pages" tab on the left, then click the "Create" button, then select the Pages tab, and click the "Connect to Git" button. Choose Notion-Hugo from the repository list, then click the "Begin Setup" button.
 
+<picture>
+<source media="(prefers-color-scheme: light)" width="2559" srcset="https://github.com/user-attachments/assets/ca5ce9fe-09a9-439f-bd94-ead08c340874">
+<source media="(prefers-color-scheme: dark)" width="2559" srcset="https://github.com/user-attachments/assets/38a00d38-0ee4-45eb-ba77-5690e0e48049">
+<img width="2559" alt="Edit the file on GitHub" src="https://github.com/user-attachments/assets/ca5ce9fe-09a9-439f-bd94-ead08c340874">
+</picture>
+
 Fill in the build settings as follows:
 
 - Build command: `npm install; npm start; hugo`
@@ -120,14 +126,40 @@ Fill in the build settings as follows:
 
 Click the "Save and Deploy" button to deploy your website.
 
+<picture>
+<source media="(prefers-color-scheme: light)" width="2559" srcset="https://github.com/user-attachments/assets/a84d6b89-2d8f-4bae-adcb-b3d9d05a076b">
+<source media="(prefers-color-scheme: dark)" width="2559" srcset="https://github.com/user-attachments/assets/91e8d47c-3dbc-4b0e-86f8-3fc0d5151c23">
+<img width="2559" alt="Edit the file on GitHub" src="https://github.com/user-attachments/assets/a84d6b89-2d8f-4bae-adcb-b3d9d05a076b">
+</picture>
 
 Now we need to add a KV namespace for the Cloudflare Functions. Navigate to the **Storage & Database** tab on the left, then click the **KV** tab, then click the **+ Create** button to create a new namespace. You can name it whatever you like.
 
+<picture>
+<source media="(prefers-color-scheme: light)" width="2559" srcset="https://github.com/user-attachments/assets/7d56b453-8053-4296-b0eb-1a8df2146cc6">
+<source media="(prefers-color-scheme: dark)" width="2559" srcset="https://github.com/user-attachments/assets/d432ce02-9527-4662-8360-21c0922cca64">
+<img width="2559" alt="Edit the file on GitHub" src="https://github.com/user-attachments/assets/7d56b453-8053-4296-b0eb-1a8df2146cc6">
+</picture>
+
 Now, navigate to **Workers & Pages** > **your_project** > **Settings** > **Bindings**, add a new **KV Namespace** binding, with *Variable name* set to `KV` and the *KV namespace* set to the namespace you just created. Click the **Save** button to save the changes.
 
-### Configure `base_url`
+<img width="2559" alt="Screenshot 2024-12-20 at 17 07 48" src="https://github.com/user-attachments/assets/6664cee5-02af-40e8-911f-1a82be185e8f" />
+<img width="2559" alt="Screenshot 2024-12-20 at 17 07 55" src="https://github.com/user-attachments/assets/68befd19-b169-413a-9c4f-46cf5de5c830" />
 
-Visit the **Deployments** tab to check the domain of your website (in this case, it is `https://notion-hugo-example.pages.dev`). Navigate back to your GitHub repository, change the `base_url` in the `notion-hugo.config.ts` file to the domain of your website. Also update the `baseURL` in `config/_default/config.toml` file to this value. Click the commit changes button at the bottom to save the file.
+<picture>
+<source media="(prefers-color-scheme: light)" width="2559" srcset="https://github.com/user-attachments/assets/6664cee5-02af-40e8-911f-1a82be185e8f">
+<source media="(prefers-color-scheme: dark)" width="2559" srcset="https://github.com/user-attachments/assets/68befd19-b169-413a-9c4f-46cf5de5c830">
+<img width="2559" alt="Edit the file on GitHub" src="https://github.com/user-attachments/assets/6664cee5-02af-40e8-911f-1a82be185e8f">
+</picture>
+
+Finally, we need to configure the baseURL. Visit the **Deployments** tab to check the domain of your website (in this case, it is `https://notion-hugo-example.pages.dev`). 
+
+<picture>
+<source media="(prefers-color-scheme: light)" width="2559" srcset="https://github.com/user-attachments/assets/52ed73d6-db6c-45ac-a238-d0d50908dba2">
+<source media="(prefers-color-scheme: dark)" width="2559" srcset="https://github.com/user-attachments/assets/31f8b30b-c997-4ec6-8cc5-3075d15867be">
+<img width="2559" alt="Edit the file on GitHub" src="https://github.com/user-attachments/assets/52ed73d6-db6c-45ac-a238-d0d50908dba2">
+</picture>
+
+Navigate back to your GitHub repository, change the `base_url` in the `notion-hugo.config.ts` file to the domain of your website. Also update the `baseURL` in `config/_default/config.toml` file to this value. Click the commit changes button at the bottom to save the file.
 
 Congratulations! Your website is now live at the domain you just configured.
 
