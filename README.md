@@ -142,7 +142,6 @@ Now we need to add a KV namespace for the Cloudflare Functions. Navigate to the 
 
 Now, navigate to **Workers & Pages** > **your_project** > **Settings** > **Bindings**, add a new **KV Namespace** binding, with *Variable name* set to `KV` and the *KV namespace* set to the namespace you just created. Click the **Save** button to save the changes.
 
-
 <picture>
 <source media="(prefers-color-scheme: light)" width="2559" srcset="https://github.com/user-attachments/assets/6664cee5-02af-40e8-911f-1a82be185e8f">
 <source media="(prefers-color-scheme: dark)" width="2559" srcset="https://github.com/user-attachments/assets/68befd19-b169-413a-9c4f-46cf5de5c830">
@@ -157,7 +156,7 @@ Finally, we need to configure the baseURL. Visit the **Deployments** tab to chec
 <img width="2559" alt="Edit the file on GitHub" src="https://github.com/user-attachments/assets/52ed73d6-db6c-45ac-a238-d0d50908dba2">
 </picture>
 
-Navigate back to your GitHub repository, change the `base_url` in the `notion-hugo.config.ts` file to the domain of your website. Also update the `baseURL` in `config/_default/config.toml` file to this value. Click the commit changes button at the bottom to save the file.
+Navigate back to your GitHub repository, change the `base_url` in the [`notion-hugo.config.ts`](https://github.com/HEIGE-PCloud/Notion-Hugo/blob/main/notion-hugo.config.ts) file to the domain of your website. Also update the `baseURL` in [`config/_default/config.toml`](https://github.com/HEIGE-PCloud/Notion-Hugo/blob/main/config/_default/config.toml) file to this value. Click the commit changes button at the bottom to save the file.
 
 Congratulations! Your website is now live at the domain you just configured.
 
