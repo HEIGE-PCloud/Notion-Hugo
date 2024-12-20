@@ -1,4 +1,4 @@
-{{ $url := .Destination }}
+{{/*  {{ $url := .Destination }}
 {{ with resources.GetRemote $url }}
   {{ with .Err }}
     {{ errorf "Failed to download image %s" . }}
@@ -7,4 +7,4 @@
   {{ end }}
 {{ else }}
   {{ errorf "Invalid image url %q" $url }}
-{{ end }}
+{{ end }}  */}}
