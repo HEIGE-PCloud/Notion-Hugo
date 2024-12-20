@@ -1,8 +1,8 @@
 ---
 title: "The Proof of Riemann Hypothesis by ChatGPT"
 date: "2022-11-18T20:20:00.000Z"
-lastmod: "2024-05-02T05:47:00.000Z"
-draft: true
+lastmod: "2024-12-20T17:59:00.000Z"
+draft: false
 series: []
 authors:
   - "PCloud"
@@ -12,7 +12,7 @@ NOTION_METADATA:
   object: "page"
   id: "defad681-ffdb-4b8f-a1ab-8d534ce082ca"
   created_time: "2022-11-18T20:20:00.000Z"
-  last_edited_time: "2024-05-02T05:47:00.000Z"
+  last_edited_time: "2024-12-20T17:59:00.000Z"
   created_by:
     object: "user"
     id: "657d1c71-eca5-475d-b9d3-3669efd38ab9"
@@ -34,7 +34,7 @@ NOTION_METADATA:
     draft:
       id: "JiWU"
       type: "checkbox"
-      checkbox: true
+      checkbox: false
     authors:
       id: "bK%3B%5B"
       type: "people"
@@ -58,6 +58,10 @@ NOTION_METADATA:
       id: "nbY%3F"
       type: "multi_select"
       multi_select: []
+    Last edited time:
+      id: "vbGE"
+      type: "last_edited_time"
+      last_edited_time: "2024-12-20T17:59:00.000Z"
     summary:
       id: "x%3AlD"
       type: "rich_text"
@@ -83,7 +87,7 @@ NOTION_METADATA:
     ffdb4b8fa1ab8d534ce082ca"
   public_url: "https://pcloud.notion.site/The-Proof-of-Riemann-Hypothesis-by-Chat\
     GPT-defad681ffdb4b8fa1ab8d534ce082ca"
-UPDATE_TIME: "2024-12-20T16:10:09.342Z"
+MANAGED_BY_NOTION_HUGO: true
 
 ---
 
