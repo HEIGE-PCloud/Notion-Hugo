@@ -179,3 +179,7 @@ on:
   schedule:
     - cron: '0 0 * * *'
 ```
+
+### How do I manually sync with Notion?
+
+You can trigger the CD workflow manually by navigating to the **Actions** tab in your repository, then click the **CD** workflow, then click the **Run workflow** button to trigger the workflow.
