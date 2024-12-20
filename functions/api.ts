@@ -13,6 +13,7 @@ function getFileUrl(block: BlockObjectResponse): string | null {
 export const onRequest: PagesFunction<Env> = async (context) => {
   await context.env.KV.put("test", "test");
   const test = await context.env.KV.get("test");
+
   return new Response(test, { status: 200 });
   const url = new URL(context.request.url);
 
