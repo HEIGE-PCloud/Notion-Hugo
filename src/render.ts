@@ -1,44 +1,13 @@
 import fs from "fs-extra";
-import {
-  Client,
-  isFullUser,
-  iteratePaginatedAPI,
-} from "@notionhq/client";
-import {
-  PageObjectResponse,
-} from "@notionhq/client/build/src/api-endpoints";
+import { Client, isFullUser, iteratePaginatedAPI } from "@notionhq/client";
+import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 import { NotionToMarkdown } from "./markdown/notion-to-md";
 import YAML from "yaml";
 import { sh } from "./sh";
 import { DatabaseMount, PageMount } from "./config";
 import { getPageTitle, getCoverLink, getFileName } from "./helpers";
-import { MdBlock } from "./markdown/types";
 import path from "path";
 import { getContentFile } from "./file";
-
-function getExpiryTime(
-  blocks: MdBlock[],
-  expiry_time: string | undefined = undefined,
-): string | undefined {
-  for (const block of blocks) {
-    if (block.expiry_time !== undefined) {
-      if (expiry_time === undefined) expiry_time = block.expiry_time;
-      else
-        expiry_time =
-          expiry_time < block.expiry_time ? expiry_time : block.expiry_time;
-    }
-    if (block.children.length > 0) {
-      const child_expiry_time = getExpiryTime(block.children, expiry_time);
-      if (child_expiry_time) {
-        if (expiry_time === undefined) expiry_time = child_expiry_time;
-        else
-          expiry_time =
-            expiry_time < child_expiry_time ? expiry_time : child_expiry_time;
-      }
-    }
-  }
-  return expiry_time;
-}
 
 export async function renderPage(page: PageObjectResponse, notion: Client) {
   // load formatter config
@@ -47,10 +16,7 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
     return `{{< notion-unsupported-block type=${type} >}}`;
   });
   let frontInjectString = "";
-  let nearest_expiry_time: string | null = null;
   const mdblocks = await n2m.pageToMarkdown(page.id);
-  const page_expiry_time = getExpiryTime(mdblocks);
-  if (page_expiry_time) nearest_expiry_time = page_expiry_time;
   const mdString = n2m.toMarkdownString(mdblocks);
   page.properties.Name;
   const title = getPageTitle(page);
@@ -69,15 +35,6 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
   if (featuredImageLink) {
     const { link, expiry_time } = featuredImageLink;
     frontMatter.featuredImage = link;
-    // update nearest_expiry_time
-    if (expiry_time) {
-      if (nearest_expiry_time) {
-        nearest_expiry_time =
-          expiry_time < nearest_expiry_time ? expiry_time : nearest_expiry_time;
-      } else {
-        nearest_expiry_time = expiry_time;
-      }
-    }
   }
 
   // map page properties to front matter
@@ -179,11 +136,6 @@ export async function renderPage(page: PageObjectResponse, notion: Client) {
   // save metadata
   frontMatter.NOTION_METADATA = page;
 
-  // save update time
-  frontMatter.UPDATE_TIME = new Date().toISOString();
-  // save nearest expiry time
-  if (nearest_expiry_time) frontMatter.EXPIRY_TIME = nearest_expiry_time;
-
   return {
     title,
     pageString:
@@ -210,16 +162,9 @@ export async function savePage(
     getFileName(getPageTitle(page), page.id),
   );
   const post = getContentFile(postpath);
-  if (post) {
-    const metadata = post.metadata;
-    // if the page is not modified, continue
-    if (
-      post.expiry_time == null &&
-      metadata.last_edited_time === page.last_edited_time
-    ) {
-      console.info(`[Info] The post ${postpath} is up-to-date, skipped.`);
-      return;
-    }
+  if (post && post.metadata.last_edited_time === page.last_edited_time) {
+    console.info(`[Info] The post ${postpath} is up-to-date, skipped.`);
+    return;
   }
   // otherwise update the page
   console.info(`[Info] Updating ${postpath}`);
