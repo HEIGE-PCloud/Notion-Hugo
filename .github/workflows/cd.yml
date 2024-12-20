@@ -42,10 +42,6 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v5
-
       - name: Sync content with Notion
         env:
          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
