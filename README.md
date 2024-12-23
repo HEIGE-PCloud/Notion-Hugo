@@ -26,7 +26,7 @@ Click on **Create new integration** to create a new internal integration.
 
 <img width="891" alt="Create new integration" src="https://user-images.githubusercontent.com/52968553/188289065-d2e3626e-d250-4d42-9fb4-8f641f4807ea.png">
 
-In the capabilities section, select **Read Content** and **Read user information including email address**. The "Read Content" permission is necessary for Notion-Hugo to pull your Notion content, and the "Read user information including email address" permission is used to fill front matters with author information. Notion-Hugo does not collect any of your information.
+In the capabilities section, select **Read Content** and **Read user information including email address**. The **Read Content** permission is necessary for Notion-Hugo to pull your Notion content, and the **Read user information including email address** permission is used to fill front matters with author information. Notion-Hugo does not collect any of your information.
 
 <img width="891" alt="Setup capabilities" src="https://user-images.githubusercontent.com/52968553/188289098-d318ebba-46a5-4d41-bfcd-ac0f09f35f82.png">
 
@@ -38,9 +38,9 @@ Copy the Internal Integration Token.
 
 <img width="816" alt="Copy the Internal Integration Token" src="https://user-images.githubusercontent.com/52968553/188298208-23d96254-f8a7-4571-8863-0d920bb82143.png">
 
-Navigate to the GitHub repo you just created, click on Settings -> Secrets -> Actions.
+Navigate to the GitHub repo you just created, click on **Settings** -> **Secrets** -> **Actions**.
 
-Click the "New Repository Secret" button on the top right.
+Click the **New Repository Secret** button on the top right.
 
 <picture>
 <source media="(prefers-color-scheme: light)" width="1148" srcset="https://user-images.githubusercontent.com/52968553/188298495-f4b1aa17-fff2-4b5e-adab-2aaddce22262.png">
@@ -48,7 +48,7 @@ Click the "New Repository Secret" button on the top right.
 <img width="1148" alt="Setup secrets for GitHub Action" src="https://user-images.githubusercontent.com/52968553/188298495-f4b1aa17-fff2-4b5e-adab-2aaddce22262.png">
 </picture>
 
-Add a new secret with name `NOTION_TOKEN`, paste the copied token into the secret field. Click the green "Add secret" button to save the change.
+Add a new secret with name `NOTION_TOKEN`, paste the copied token into the secret field. Click the green **Add secret** button to save the change.
 
 <picture>
 <source media="(prefers-color-scheme: light)" width="824" srcset="https://user-images.githubusercontent.com/52968553/188298507-5402a19f-dc35-45a9-b7b7-867f38cdb001.png">
