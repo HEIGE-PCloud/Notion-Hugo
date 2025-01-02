@@ -13,7 +13,7 @@ on:
 # Allow one concurrent deployment
 concurrency:
   group: "deploy"
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 # Default to bash
 defaults:
