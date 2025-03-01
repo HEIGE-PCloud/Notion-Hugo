@@ -162,7 +162,7 @@ function equationRichText(text: EquationRichTextItemResponse): string {
 
 async function mentionRichText(
   text: MentionRichTextItemResponse,
-  notion: Client
+  notion: Client,
 ): Promise<string> {
   const mention = text.mention;
   switch (mention.type) {
@@ -203,11 +203,12 @@ async function mentionRichText(
       return "";
     }
   }
+  return "";
 }
 
 export async function richText(
   textArray: RichTextItemResponse[],
-  notion: Client
+  notion: Client,
 ) {
   return (
     await Promise.all(
@@ -219,7 +220,7 @@ export async function richText(
         } else if (text.type === "mention") {
           return await mentionRichText(text, notion);
         }
-      })
+      }),
     )
   ).join("");
 }
@@ -255,13 +256,17 @@ function htmlVideo(url: string) {
 export const pdf = (block: PdfBlockObjectResponse) => {
   const pdfBlock = block.pdf;
   const url =
-    pdfBlock.type === "file" ? blockIdToApiUrl(block.id) : pdfBlock.external.url;
+    pdfBlock.type === "file"
+      ? blockIdToApiUrl(block.id)
+      : pdfBlock.external.url;
   return `<embed src="${url}" type="application/pdf" style="width: 100%;aspect-ratio: 2/3;height: auto;" />`;
 };
 
 export const audio = (block: AudioBlockObjectResponse) => {
   const audioBlock = block.audio;
   const url =
-    audioBlock.type === "file" ? blockIdToApiUrl(block.id) : audioBlock.external.url;
+    audioBlock.type === "file"
+      ? blockIdToApiUrl(block.id)
+      : audioBlock.external.url;
   return `<audio controls src="${url}"></audio>`;
 };
