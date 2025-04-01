@@ -39,7 +39,7 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250129.0",
     "@types/fs-extra": "^11.0.4",
-    "@types/node": "^22.13.7",
+    "@types/node": "^22.13.14",
     "prettier": "^3.5.2",
     "typescript": "^5.8.2"
   }
