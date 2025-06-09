@@ -56,7 +56,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
     });
   }
 
-  const notion = new Client({ auth: context.env.NOTION_TOKEN });
+  const notion = new Client({ auth: context.env.NOTION_TOKEN, fetch: fetch.bind(globalThis) });
 
   const cacheData = await getCachedData(context.env.KV, pageId ?? blockId);
   if (cacheData) {
