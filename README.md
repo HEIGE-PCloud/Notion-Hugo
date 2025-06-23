@@ -121,8 +121,8 @@ Fill in the build settings as follows:
 - Build command: `npm install; npm start; hugo`
 - Build output directory: `public`
 - Environment variables:
-  - `HUGO_VERSION`: `0.140.0` (fill in the latest version of Hugo here)
-  - `NODE_VERSION`: `22.12.0` (fill in the latest version of Node.js here)
+  - `HUGO_VERSION`: `0.140.0` (fill in the latest version of Hugo that you can find [here](https://github.com/gohugoio/hugo/releases))
+  - `NODE_VERSION`: `22.12.0` (fill in the latest version of Node.js that you can find [here](https://nodejs.org/en/download))
   - `NOTION_TOKEN`: `secret_token` (fill in the token you copied from the Notion integration)
 
 Click the **Save and Deploy** button to deploy your website.
