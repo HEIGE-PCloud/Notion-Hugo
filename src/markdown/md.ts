@@ -5,6 +5,7 @@ import {
   MentionRichTextItemResponse,
   PdfBlockObjectResponse,
   RichTextItemResponse,
+  RichTextItemResponseCommon,
   TextRichTextItemResponse,
   VideoBlockObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
@@ -126,7 +127,7 @@ export const equation = (expression: string) => {
   return `\\[${expression}\\]`;
 };
 
-function textRichText(text: TextRichTextItemResponse): string {
+function textRichText(text: RichTextItemResponseCommon & TextRichTextItemResponse): string {
   const annotations = text.annotations;
   let content = text.text.content;
   if (annotations.bold) {
