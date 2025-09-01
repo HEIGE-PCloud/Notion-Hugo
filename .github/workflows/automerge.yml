@@ -1,7 +1,6 @@
 name: Dependabot auto-merge
 on: 
   pull_request:
-  workflow_dispatch:
 
 permissions:
   contents: write
@@ -10,7 +9,7 @@ permissions:
 jobs:
   dependabot:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'owner/my_repo'
+    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'HEIGE-PCloud/Notion-Hugo'
     steps:
       - name: Dependabot metadata
         id: metadata
