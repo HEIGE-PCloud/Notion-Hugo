@@ -33,7 +33,7 @@
     "front-matter": "^4.0.2",
     "fs-extra": "^11.3.1",
     "markdown-table": "^3.0.4",
-    "tsx": "^4.20.5",
+    "tsx": "^4.20.6",
     "yaml": "^2.8.0"
   },
   "devDependencies": {
