@@ -34,7 +34,7 @@
     "fs-extra": "^11.3.3",
     "markdown-table": "^3.0.4",
     "tsx": "^4.21.0",
-    "yaml": "^2.8.2"
+    "yaml": "^2.8.3"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20260301.1",
