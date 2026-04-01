@@ -37,7 +37,7 @@
     "yaml": "^2.8.3"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20260301.1",
+    "@cloudflare/workers-types": "^4.20260401.1",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^25.3.3",
     "prettier": "^3.8.1",
