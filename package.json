@@ -31,7 +31,7 @@
     "@notionhq/client": "^5.23.2",
     "dotenv": "^17.4.2",
     "front-matter": "^4.0.2",
-    "fs-extra": "^11.3.6",
+    "fs-extra": "^11.4.0",
     "markdown-table": "^3.0.4",
     "tsx": "^4.23.1",
     "yaml": "^2.9.0"
